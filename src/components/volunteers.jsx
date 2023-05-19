@@ -1,13 +1,36 @@
+import { FaLinkedin } from "react-icons/fa";
 
-import {FaLinkedin} from 'react-icons/fa';
+function Volunteers({ user }) {
 
-function Volunteers({user}){
-    return <div className="Volunteers">
-        <img src={require('../assets/heropic.jpg')} alt="Heroe's image" />
-        <p style={{textAlign:'center'}}>{user.username}</p>
-        <div className="HeroesDetails">
-            <a href={user.linkedin} target="_blank" rel="noopener noreferrer"><FaLinkedin/></a>
-        </div>
+  // TODO:implement function
+  
+  const makeVolunteer=()=>{
+
+  }
+
+
+  const blockUser=()=>{
+
+  }
+
+
+  return (
+    <div className="Heroes">
+      <img src={user.image} alt="Heroe's image" />
+      <p style={{ textAlign: "center" }}>{user.email}</p>
+      <p style={{ textAlign: "center" }}>{user.accountType}</p>
+
+      <div className="HeroesDetails">
+        <button className={user.accountType!='volunteer'?"PromoButtonPrimary":"PromoButtonSecondary"} type="button" onClick={makeVolunteer} >
+        {user.accountType=='volunteer'?"Volunteered":"Volunteer"}
+         
+        </button>
+        
+        <button className="PromoButtonTertiary" type="button" onClick={blockUser}>
+          Block
+        </button>
+      </div>
     </div>
+  );
 }
 export default Volunteers;

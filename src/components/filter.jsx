@@ -43,7 +43,7 @@ const Filter = ({ placeHolder,options,setDonations,setIsLoading}) => {
       // setIsLoading((prev)=>!prev)
       try {
         const BookData = await axios.get(
-          `http://localhost:5000/salvageme/donation/category/${category}`       
+          `${process.env.BASE_URL}/donation/category/${category}`       
         );
         console.log(BookData.data)
         setDonations(BookData.data);
