@@ -1,126 +1,137 @@
-import React, { useState, useEffect,useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import DonorBook from "../components/donorBook";
 import Dropdown from "../components/dropdown";
 import axios from "axios";
 import { MdCloudUpload } from "react-icons/md";
-import {UserContext} from "../context/userContext/userContext";
+import { UserContext } from "../context/userContext/userContext";
 import Spinner from "../shared/spinner";
 
-
 function AcceptDonation() {
-  const {setLocalUser,getLocalUser,setUser,user}=useContext(UserContext)
+  const { setLocalUser, getLocalUser, setUser, user } = useContext(UserContext);
 
-  const [donations,setDonations]=useState(null);
+  const [donations, setDonations] = useState([]);
   const [isLoading, setIsloading] = useState(true);
 
-
   useEffect(() => {
-    console.log('=====================useremail======================');
-    console.log(user[0])
-    getDonation()    
-    
+    console.log("=====================acceptDonation======================");
+    console.log(user[0]);
+    getDonation();
   }, []);
 
-  const getDonation = async (File,e) => {
-    e.preventDefault()
-    setIsloading(true)
+  const getDonation = async () => {
+    setIsloading(true);
     try {
-      
-      const donationResponse = await axios.post(
-        `${process.env.REACT_BASE_URL}/donation/` 
+      const donationResponse = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}/donation/`
       );
       if (donationResponse.status == 200) {
         console.log(donationResponse);
         setDonations(donationResponse.data);
-        setIsloading(false)
+        setIsloading(false);
       }
     } catch (error) {
-      setIsloading(false)
+      setIsloading(false);
       console.log(error);
     }
   };
 
-  const DonationAccepted = async (id,e) => {
-    e.preventDefault()
-    setIsloading(true)
+  const DonationAccepted = async (id, e) => {
+    e.preventDefault();
+    setIsloading(true);
     try {
       const recieved = {
-        status:'recieved',
-        acceptedBy:user[0].email,
-      }
+        status: "recieved",
+        acceptedBy: user[0].email,
+      };
       // TODO:change function to put to update status
-      const donationResponse = await axios.post(
-        `${process.env.REACT_BASE_URL}/donation/createDonation`,
+      const donationResponse = await axios.put(
+        `${process.env.REACT_APP_BASE_URL}/donation/updateDonation/${id}`,
         recieved
       );
       if (donationResponse.status == 200) {
+        console.log('===============recieving donation==============')
         // TODO:map through donations and remove donation aaccepted
-        console.log(donationResponse);
-        setDonations(donationResponse.data);
+        console.log(donationResponse.data);
+        setDonations(()=>donations.filter((donation)=>donation._id!=id));
         // updateDonationCount();
-        setIsloading(false)
+        setIsloading(false);
       }
     } catch (error) {
-      setIsloading(false)
+      setIsloading(false);
       console.log(error);
     }
   };
 
-  const DonationRejected = async (id,e) => {
-    e.preventDefault()
-    setIsloading(true)
+  const DonationRejected = async (id, e) => {
+    e.preventDefault();
+    setIsloading(true);
     try {
       const recieved = {
-        status:'rejected',
-        acceptedBy:user[0].email,
-      }
+        status: "rejected",
+        acceptedBy: user[0].email,
+      };
       // TODO:change function to put to update status
-      const donationResponse = await axios.post(
-        `${process.env.REACT_BASE_URL}/donation/createDonation`,
+      const donationResponse = await axios.put(
+        `${process.env.REACT_APP_BASE_URL}/donation/updateDonation/${id}`,
         recieved
       );
       if (donationResponse.status == 200) {
+        console.log('===============Rejected=================')
         // TODO:map through donations and remove donation aaccepted
-        console.log(donationResponse);
-        setDonations(donationResponse.data);
+        console.log(donationResponse.data);
+        setDonations(()=>donations.filter((donation)=>donation._id!=id));
         // updateDonationCount();
-        setIsloading(false)
+        setIsloading(false);
       }
     } catch (error) {
-      setIsloading(false)
+      setIsloading(false);
       console.log(error);
     }
   };
 
-  const updateDonationCount=async()=>{
-    const updateDonationCountData={email:user[0].email,donationCount:user[0].donationCount+1}
+  const updateDonationCount = async () => {
+    const updateDonationCountData = {
+      email: user[0].email,
+      donationCount: user[0].donationCount + 1,
+    };
     try {
-          const updateDonationResponse=await axios.put(`${process.env.REACT_BASE_URL}/auth/updateUserCount`,updateDonationCountData);
-          if(updateDonationResponse.status==200){
-                setLocalUser({...user[0],donationCount:user[0].donationCount+1})
-
-          }
+      const updateDonationResponse = await axios.put(
+        `${process.env.REACT_APP_BASE_URL}/auth/updateUserCount`,
+        updateDonationCountData
+      );
+      if (updateDonationResponse.status == 200) {
+        setLocalUser({ ...user[0], donationCount: user[0].donationCount + 1 });
+      }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-
-
-  }
-
+  };
 
   return (
-    <><h1 className="HeroesTitle">Accept Donation</h1>
-        {isLoading ? (
-          <Spinner></Spinner>
-        ) : (
-          <div className="flexLayout">
-            {donations.map((donation, index) => (
-              <DonorBook key={index} donation={donation} user={user} donationAccepted={DonationAccepted} DonationRejected={DonationRejected}/>
-            ))}
-          </div>
-        )}</>
-    
-      
+    <div>
+      <h3 className="HeroesTitle">Accept Donation</h3>
+      {isLoading ? (
+        <Spinner></Spinner>
+      ) : (
+        <div className="flexLayout">
+          {donations.map((donation, index) => {
+            console.log(donation);
+            if(donation.status=='pending'){
+              return (
+              <DonorBook
+                key={index}
+                donation={donation}
+                user={user}
+                DonationAccepted={DonationAccepted}
+                DonationRejected={DonationRejected}
+              />
+            );
+            }
+            
+          })}
+        </div>
+      )}
+    </div>
   );
 }
 

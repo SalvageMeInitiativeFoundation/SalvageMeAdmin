@@ -16,7 +16,7 @@ function Home() {
 
   const FetchData = async () => {
     try {
-      const BookData = await axios.get(`http://localhost:5000/salvageme/auth/users`);
+      const BookData = await axios.get(`${process.env.REACT_APP_BASE_URL}/auth/users`);
       setUsers(BookData.data);
       console.log(users);
     } catch (error) {}
@@ -57,7 +57,7 @@ function Home() {
             <p>Religion</p>
           </div>
         </div>
-        <h1 className="HeroesTitle">Growth graph totally donated</h1>
+        <h3 className="HeroesTitle">Growth graph totally donated</h3>
         {users == null ? (
           <Spinner></Spinner>
         ) : (

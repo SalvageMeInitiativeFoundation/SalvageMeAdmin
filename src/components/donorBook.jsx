@@ -7,6 +7,7 @@ function DonorBook({donation,user,DonationAccepted,DonationRejected}) {
   
   return (
     <div className="Heroes">
+      <img src={donation.image} alt="Heroe's image" />
       <p style={{ textAlign: "center" }}>{donation.title}</p>
       <p style={{ textAlign: "center" }}>{donation.currentReciever}</p>
       <p style={{ textAlign: "center" }}>{donation.updatedAt}</p>

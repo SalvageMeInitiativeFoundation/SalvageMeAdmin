@@ -1,15 +1,14 @@
-import React, { useEffect, useState,useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import DonorBook from "../components/donorBook";
 import { IoIosFunnel } from "react-icons/io";
 import Filter from "../components/filter";
 import axios from "axios";
 import Spinner from "../shared/spinner";
 import ApproveDonorBook from "../components/approveDonorBook";
-import {UserContext} from "../context/userContext/userContext";
-
+import { UserContext } from "../context/userContext/userContext";
 
 function ApproveDonation() {
-  const {setLocalUser,getLocalUser,setUser,user}=useContext(UserContext)
+  const { setLocalUser, getLocalUser, setUser, user } = useContext(UserContext);
 
   const [singleSearchValue, setSingleSearchValue] = useState("");
   const [isLoading, setIsloading] = useState(true);
@@ -24,7 +23,7 @@ function ApproveDonation() {
     setIsloading(true);
     try {
       const BookData = await axios.get(
-        `${process.env.REACT_BASE_URL}/donation/`
+        `${process.env.REACT_APP_BASE_URL}/donation/`
       );
       setDonations(BookData.data);
       setIsloading(false);
@@ -38,7 +37,7 @@ function ApproveDonation() {
     setIsloading(true);
     try {
       const BookData = await axios.get(
-        `${process.env.REACT_BASE_URL}/donation/${title}`
+        `${process.env.REACT_APP_BASE_URL}/donation/${title}`
       );
       setDonations(BookData.data);
       setIsloading((prev) => !prev);
@@ -77,60 +76,61 @@ function ApproveDonation() {
     { value: "Philosophy & Psychology", label: "Philosophy & Psychology" },
   ];
 
-  const ApprovalAccepted = async (id,e) => {
-    e.preventDefault()
-    setIsloading(true)
+  const ApprovalAccepted = async (id, e) => {
+    e.preventDefault();
+    setIsloading(true);
     try {
       const recieved = {
-        status:'recieved',
-        acceptedBy:user[0].email,
-      }
+        status: "donated",
+        acceptedBy: user[0].email,
+      };
       // TODO:change function to put to update status
-      const donationResponse = await axios.post(
-        `${process.env.REACT_BASE_URL}/donation/createDonation`,
+      const donationResponse = await axios.put(
+        `${process.env.REACT_APP_BASE_URL}/donation/updateDonation/${id}`,
         recieved
       );
       if (donationResponse.status == 200) {
         // TODO:map through donations and remove donation aaccepted
         console.log(donationResponse);
-        setDonations(donationResponse.data);
+        setDonations(() => donations.filter((donation) => donation._id != id));
         // updateDonationCount();
-        setIsloading(false)
+        setIsloading(false);
       }
     } catch (error) {
-      setIsloading(false)
+      setIsloading(false);
       console.log(error);
     }
   };
 
-  const ApprovalRejected = async (id,e) => {
-    e.preventDefault()
-    setIsloading(true)
+  const ApprovalRejected = async (id, e) => {
+    e.preventDefault();
+    setIsloading(true);
     try {
       const recieved = {
-        status:'rejected',
-        acceptedBy:user[0].email,
-      }
+        status: "recieved",
+        acceptedBy: user[0].email,
+      };
       // TODO:change function to put to update status
-      const donationResponse = await axios.post(
-        `${process.env.REACT_BASE_URL}/donation/createDonation`,
+      const donationResponse = await axios.put(
+        `${process.env.REACT_APP_BASE_URL}/donation/updateDonation/${id}`,
         recieved
       );
       if (donationResponse.status == 200) {
+        console.log("============Rejecting Approval===============");
         // TODO:map through donations and remove donation aaccepted
         console.log(donationResponse);
-        setDonations(donationResponse.data);
+        setDonations(() => donations.filter((donation) => donation._id != id));
         // updateDonationCount();
-        setIsloading(false)
+        setIsloading(false);
       }
     } catch (error) {
-      setIsloading(false)
+      setIsloading(false);
       console.log(error);
     }
   };
 
   return (
-    <div>
+    <div className="layoutContent">
       <div className="RequestSearch">
         <div className="RequestSearchOne">
           <input
@@ -154,6 +154,7 @@ function ApproveDonation() {
           />
         </div>
       </div>
+      <h3 className="HeroesTitle">Approve Users Request</h3>
 
       {isLoading ? (
         <Spinner></Spinner>
@@ -164,11 +165,18 @@ function ApproveDonation() {
       ) : (
         <div className="flexLayout">
           {donations.map((donation, index) => {
-            console.log('==============================')
+            console.log("==============================");
 
-            if (donation.status == "pending") {
+            if (donation.status == "processing") {
               console.log(donation);
-              return <ApproveDonorBook key={index} donation={donation} />;
+              return (
+                <ApproveDonorBook
+                  key={index}
+                  donation={donation}
+                  ApprovalRejected={ApprovalRejected}
+                  ApprovalAccepted={ApprovalAccepted}
+                />
+              );
             }
           })}
         </div>

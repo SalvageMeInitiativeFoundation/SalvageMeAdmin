@@ -29,12 +29,14 @@ const PromoteUsertoVolunteer=()=>{
       }
     };
   
-  //   TODO:change url to get single user
+  //   TODO:Test
     const FetchDataByTitle = async (title) => {
       setIsloading(true);
+      const data={email:title}
+
       try {
         const BookData = await axios.get(
-          `${process.env.REACT_BASE_URL}/donation/${title}`
+          `${process.env.REACT_APP_BASE_URL}auth/user`,data
         );
         setUsers(BookData.data);
         setIsloading((prev) => !prev);
@@ -57,6 +59,55 @@ const PromoteUsertoVolunteer=()=>{
       setSingleSearchValue(e.target.value);
     };
 
+    const PromotionAccepted = async (id, e) => {
+    e.preventDefault();
+    setIsloading(true);
+    try {
+      const recieved = {
+        accountType: "volunteer",
+      };
+      // TODO:Test this section
+      const donationResponse = await axios.put(
+        `${process.env.REACT_APP_BASE_URL}/auth/updateAccountTypeBlockUser/${id}`,
+        recieved
+      );
+      if (donationResponse.status == 200) {
+        console.log(donationResponse);
+        setUsers(() => users.filter((user) => user._id != id));
+        // updateDonationCount();
+        setIsloading(false);
+      }
+    } catch (error) {
+      setIsloading(false);
+      console.log(error);
+    }
+  };
+
+  const PromotionRejected = async (id, e) => {
+    e.preventDefault();
+    setIsloading(true);
+    try {
+      const recieved = {
+        status: "blocked",
+      };
+      // TODO:Test this section
+      const donationResponse = await axios.put(
+        `${process.env.REACT_APP_BASE_URL}/auth/updateAccountTypeBlockUser/${id}`,
+        recieved
+      );
+      if (donationResponse.status == 200) {
+        console.log("============Rejecting Approval===============");
+        console.log(donationResponse);
+        setUsers(() => users.filter((user) => user._id != id));
+        // updateDonationCount();
+        setIsloading(false);
+      }
+    } catch (error) {
+      setIsloading(false);
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <div>   
@@ -76,13 +127,13 @@ const PromoteUsertoVolunteer=()=>{
         </div>
         
       </div>   
-        <h1 className="HeroesTitle">Promote user to volunteer</h1>
+        <h3 className="HeroesTitle">Promote user to volunteer</h3>
         {users == null ? (
           <Spinner></Spinner>
         ) : (
           <div className="flexLayout">
             {users.map((user, index) => {
-              if(user.accountType!='admin'){return (<Volunteers key={index} user={user} />)}
+              if(user.accountType!='admin'){return (<Volunteers key={index} user={user} PromotionAccepted={PromotionAccepted} PromotionRejected={PromotionRejected} />)}
               
             })}
           </div>

@@ -19,7 +19,7 @@ function Login(){
         e.preventDefault();
         console.log('loggiiiiiiiiiiiiiiiiiiiiiiiiiiiiiin')
         try {
-           const loginResponse= await axios.post(`${process.env.REACT_BASE_URL}/auth/loginUser`,loginData) ;
+           const loginResponse= await axios.post(`${process.env.REACT_APP_BASE_URL}/auth/loginUser`,loginData) ;
            console.log(loginResponse.data)
            if(loginResponse.status==200){
 

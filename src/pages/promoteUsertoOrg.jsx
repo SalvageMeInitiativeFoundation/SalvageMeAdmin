@@ -1,15 +1,18 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect,useContext } from "react";
 import axios from "axios";
 import Spinner from "../shared/spinner";
 import Heroes from "../components/heroes";
+import { UserContext } from "../context/userContext/userContext";
 
-const PromoteUsertoOrg=()=>{
-    const [isLoading, setIsloading] = useState(true);
+const PromoteUsertoOrg = () => {
+  const { setLocalUser, getLocalUser, setUser, user } = useContext(UserContext);
+
+  const [isLoading, setIsloading] = useState(true);
   const [users, setUsers] = useState(null);
   const [singleSearchValue, setSingleSearchValue] = useState("");
 
   useEffect(() => {
-    console.log("fetching")
+    console.log("fetching");
     FetchData();
   }, []);
 
@@ -17,23 +20,25 @@ const PromoteUsertoOrg=()=>{
     setIsloading(true);
 
     try {
-      const BookData = await axios.get(`http://localhost:5000/salvageme/auth/users`);
+      const BookData = await axios.get(
+        `http://localhost:5000/salvageme/auth/users`
+      );
       setUsers(BookData.data);
       console.log(users);
       setIsloading(false);
-
     } catch (error) {
-        setIsloading(false);
-console.error(error);
+      setIsloading(false);
+      console.error(error);
     }
   };
 
-//   TODO:change url to get single user
+  //   TODO:Test
   const FetchDataByTitle = async (title) => {
     setIsloading(true);
+    const data={email:title}
     try {
       const BookData = await axios.get(
-        `${process.env.REACT_BASE_URL}/donation/${title}`
+        `${process.env.REACT_APP_BASE_URL}auth/user`,data
       );
       setUsers(BookData.data);
       setIsloading((prev) => !prev);
@@ -56,42 +61,88 @@ console.error(error);
     setSingleSearchValue(e.target.value);
   };
 
+  const PromotionAccepted = async (id, e) => {
+    e.preventDefault();
+    setIsloading(true);
+    try {
+      const recieved = {
+        accountType: "org",
+      };
+      // TODO:Test this section
+      const donationResponse = await axios.put(
+        `${process.env.REACT_APP_BASE_URL}/auth/updateAccountTypeBlockUser/${id}`,
+        recieved
+      );
+      if (donationResponse.status == 200) {
+        console.log(donationResponse);
+        setUsers(() => users.filter((user) => user._id != id));
+        // updateDonationCount();
+        setIsloading(false);
+      }
+    } catch (error) {
+      setIsloading(false);
+      console.log(error);
+    }
+  };
 
-
+  const PromotionRejected = async (id, e) => {
+    e.preventDefault();
+    setIsloading(true);
+    try {
+      const recieved = {
+        status: "blocked",
+      };
+      // TODO:Test this section
+      const donationResponse = await axios.put(
+        `${process.env.REACT_APP_BASE_URL}/auth/updateAccountTypeBlockUser/${id}`,
+        recieved
+      );
+      if (donationResponse.status == 200) {
+        console.log("============Rejecting Approval===============");
+        console.log(donationResponse);
+        setUsers(() => users.filter((user) => user._id != id));
+        // updateDonationCount();
+        setIsloading(false);
+      }
+    } catch (error) {
+      setIsloading(false);
+      console.log(error);
+    }
+  };
 
   return (
     <>
       <div>
-      <div className="RequestSearch">
-        <div className="RequestSearchOne">
-          <input
-            type="text"
-            name="BooKName"
-            id="bookName"
-            placeholder="Search for book"
-            onChange={handleChange}
-            value={singleSearchValue}
-          />
-          <button type="button" onClick={handleSingleSearch}>
-            Search
-          </button>
+        <div className="RequestSearch">
+          <div className="RequestSearchOne">
+            <input
+              type="text"
+              name="BooKName"
+              id="bookName"
+              placeholder="Search for book"
+              onChange={handleChange}
+              value={singleSearchValue}
+            />
+            <button type="button" onClick={handleSingleSearch}>
+              Search
+            </button>
+          </div>
         </div>
-        
-      </div>
 
-        <h1 className="HeroesTitle">Promote user to Organization</h1>
+        <h3 className="HeroesTitle">Promote user to Organization</h3>
         {isLoading ? (
           <Spinner></Spinner>
         ) : (
           <div className="flexLayout">
-            {users.map((user, index) =>{
-              if(user.accountType!='admin'){
-              return <Heroes key={index} user={user} />
-            }})}
+            {users.map((user, index) => {
+              if (user.accountType != "admin") {
+                return <Heroes key={index} user={user} PromotionAccepted={PromotionAccepted} PromotionRejected={PromotionRejected} />;
+              }
+            })}
           </div>
         )}
       </div>
     </>
   );
-}
-export default PromoteUsertoOrg
+};
+export default PromoteUsertoOrg;

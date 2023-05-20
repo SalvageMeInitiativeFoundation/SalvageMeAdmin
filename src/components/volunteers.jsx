@@ -1,17 +1,6 @@
 import { FaLinkedin } from "react-icons/fa";
 
-function Volunteers({ user }) {
-
-  // TODO:implement function
-  
-  const makeVolunteer=()=>{
-
-  }
-
-
-  const blockUser=()=>{
-
-  }
+function Volunteers({ user,PromotionAccepted, PromotionRejected }) {
 
 
   return (
@@ -21,12 +10,12 @@ function Volunteers({ user }) {
       <p style={{ textAlign: "center" }}>{user.accountType}</p>
 
       <div className="HeroesDetails">
-        <button className={user.accountType!='volunteer'?"PromoButtonPrimary":"PromoButtonSecondary"} type="button" onClick={makeVolunteer} >
+        <button className={user.accountType!='volunteer'?"PromoButtonPrimary":"PromoButtonSecondary"} type="button" onClick={(e)=>PromotionAccepted(user._id,e)} >
         {user.accountType=='volunteer'?"Volunteered":"Volunteer"}
          
         </button>
         
-        <button className="PromoButtonTertiary" type="button" onClick={blockUser}>
+        <button className="PromoButtonTertiary" type="button" onClick={(e)=>PromotionRejected(user._id,e) }>
           Block
         </button>
       </div>

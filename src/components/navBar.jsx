@@ -60,7 +60,7 @@ function NavBar() {
                   <hr color="white"></hr>
                 </div>
               ) : (
-                <li className="unSelected">Promote2Volunt</li>
+                <li className="unSelected ">Promote2Volunt</li>
               )}
             </Link>
             <Link to="/promoteUsertoOrg">
@@ -73,7 +73,7 @@ function NavBar() {
                 <li className="unSelected">Promote2Org</li>
               )}
             </Link>
-            <Link to="/login">
+            <Link to="/login" className="NavLoginLogoutButtonContainer">
               {pathName("/login") ? (
                 <div className="Selected">
                   <li>

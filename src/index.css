@@ -99,6 +99,7 @@ button {
   margin: 2px 2px;
 }
 
+
 .LogoutButton{
   bottom: 50px;
 }
@@ -150,6 +151,10 @@ p {
   place-items: center;
   justify-content: center;
   flex-wrap: wrap;
+  
+    border: #050505 solid 5px;
+    height: 80vh;
+    overflow-y: auto;
 }
 .NavBarContainer{
   /* position: absolute; */
@@ -185,6 +190,15 @@ p {
   justify-content: space-between;
   /* align-items: center; */
 }
+
+.NavLoginLogoutButtonContainer{
+  top: 80vh;
+  position: absolute;
+}
+
+
+
+
 .NavLoginLogoutButton{
   background-color: #9747ff;
   padding: 5px 5px 5px 5px;
@@ -208,13 +222,13 @@ border:'solid black 20px'
 
 .Selected {
   color: white;
-  margin: 0px 10px 0px 10px;
+  margin: 5px 10px 5px 10px;
   
   font-weight: bold;
 }
 .unSelected {
   color: black;
-  margin: 0px 10px 0px 10px;
+  margin: 5px 10px 5px 10px;
   /* font-weight: bold; */
 }
 
@@ -453,7 +467,7 @@ ul {
 }
 
 .RequestSearch {
-  margin: 70px 10px;
+  margin: 10px 10px;
 
   display: flex;
   justify-content: space-between;

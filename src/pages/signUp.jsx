@@ -87,7 +87,7 @@ function SignUp() {
         
         mypic.append('mypic',File);
         const urlResponse = await axios.post(
-          `${process.env.REACT_BASE_URL}/picture/image-upload`,
+          `${process.env.REACT_APP_BASE_URL}/picture/image-upload`,
           mypic,{
             headers: {
               // 'Accept-Language': 'en-US,en;q=0.8',
@@ -99,7 +99,7 @@ function SignUp() {
         console.log(urlResponse.data.imageUrl);
         const signUpData = { ...SignUpForm, image: urlResponse.data.imageUrl };
         const signUpUserResponse = await axios.post(
-          `${process.env.REACT_BASE_URL}/auth/createUser`,
+          `${process.env.REACT_APP_BASE_URL}/auth/createUser`,
           signUpData
         );
         if (signUpUserResponse.status== 200) {
