@@ -15,6 +15,15 @@ function DonorBook({donation,user,DonationAccepted,DonationRejected}) {
         <button className="PromoButtonPrimary" type="button" onClick={(e)=>DonationAccepted(donation._id,e)}>
           Accept
         </button>
+        <a href="mailto:email@address.com?subject=Hello world&body=Line one%0DLine two" target="_blank" rel="noopener noreferrer">
+          <button
+            className="PromoButtonTertiary"
+            type="button"
+            onClick={(e) => console.log("mail sent")}
+          >
+            Send Mail
+          </button>
+        </a>
         <button className="PromoButtonTertiary" type="button" onClick={(e)=>DonationRejected(donation._id,e)}>
           Reject
         </button>

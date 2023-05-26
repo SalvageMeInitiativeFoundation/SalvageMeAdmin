@@ -4,23 +4,33 @@ import Partners from "../components/partners";
 import Volunteers from "../components/volunteers";
 import axios from "axios";
 import Spinner from "../shared/spinner";
+import LineGraph from "../components/lineGraph";
+import Pie from "../components/pieGraph";
 
 function Home() {
   const [isLoading, setIsloading] = useState(true);
-  const [users, setUsers] = useState(null);
+  const [donations, setDonations] = useState(null);
 
   useEffect(() => {
-    console.log("fetching")
+    console.log("fetching");
     FetchData();
   }, []);
 
   const FetchData = async () => {
     try {
-      const BookData = await axios.get(`${process.env.REACT_APP_BASE_URL}/auth/users`);
-      setUsers(BookData.data);
-      console.log(users);
-    } catch (error) {}
+      setIsloading(true)
+      const BookData = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}/Donation/`
+      );
+      setDonations(BookData.data);
+      console.log(donations);
+      setIsloading(false);
+    } catch (error) {
+      setIsloading(false)
+      console.log(error);
+    }
   };
+
 
   return (
     <>
@@ -58,15 +68,12 @@ function Home() {
           </div>
         </div>
         <h3 className="HeroesTitle">Growth graph totally donated</h3>
-        {users == null ? (
-          <Spinner></Spinner>
-        ) : (
-          <div className="flexLayout">
-            {users.map((user, index) => (
-              <Heroes key={index} user={user} />
-            ))}
-          </div>
-        )}
+        <div lassName="flexLayout"> 
+        {isLoading?<Spinner></Spinner>:<LineGraph data={donations} ></LineGraph>}  
+        <Pie></Pie>   
+        
+        </div>
+
       </div>
     </>
   );

@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState, useContext } from "react";
 import { UserContext } from "../context/userContext/userContext";
+import { Link } from "react-router-dom";
 
 function ApproveDonorBook({ donation, ApprovalRejected, ApprovalAccepted }) {
   return (
@@ -17,6 +18,15 @@ function ApproveDonorBook({ donation, ApprovalRejected, ApprovalAccepted }) {
         >
           Approve
         </button>
+        <a href="mailto:email@address.com?subject=Hello world&body=Line one%0DLine two" target="_blank" rel="noopener noreferrer">
+          <button
+            className="PromoButtonTertiary"
+            type="button"
+            onClick={(e) => console.log("mail sent")}
+          >
+            Send Mail
+          </button>
+        </a>
         <button
           className="PromoButtonTertiary"
           type="button"
