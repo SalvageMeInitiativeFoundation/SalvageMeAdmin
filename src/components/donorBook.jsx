@@ -3,7 +3,8 @@ import React,{useEffect, useState,useContext } from "react";
 import {UserContext} from "../context/userContext/userContext";
 
 
-function DonorBook({donation,user,DonationAccepted,DonationRejected}) {    
+function DonorBook({donation,user,DonationAccepted,DonationRejected}) {  
+  const message="Hello, Thanks Donating a book to.......................... "  
   
   return (
     <div className="Heroes">
@@ -15,13 +16,13 @@ function DonorBook({donation,user,DonationAccepted,DonationRejected}) {
         <button className="PromoButtonPrimary" type="button" onClick={(e)=>DonationAccepted(donation._id,e)}>
           Accept
         </button>
-        <a href="mailto:email@address.com?subject=Hello world&body=Line one%0DLine two" target="_blank" rel="noopener noreferrer">
+        <a href={`mailto:${donation.donor}?subject=Appreciation for Donation&body=${message}`} target="_blank" rel="noopener noreferrer">
           <button
             className="PromoButtonTertiary"
             type="button"
             onClick={(e) => console.log("mail sent")}
           >
-            Send Mail
+            Mail
           </button>
         </a>
         <button className="PromoButtonTertiary" type="button" onClick={(e)=>DonationRejected(donation._id,e)}>

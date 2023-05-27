@@ -162,6 +162,7 @@ p {
   width: calc(30px+20vw);
   /* flex-direction: column; */
   height: 100vh;
+  margin-right: 10px;
 
 }
 .navBarHeader {
@@ -254,7 +255,7 @@ ul {
   justify-content: space-evenly;
 }
 .Heroes:hover {
-  transform: scale(1.1);
+  background-color: #dfd5eb;
   /* width: 175px;
   height: 190px; */
 }

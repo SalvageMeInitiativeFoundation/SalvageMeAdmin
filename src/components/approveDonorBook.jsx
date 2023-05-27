@@ -4,12 +4,14 @@ import { UserContext } from "../context/userContext/userContext";
 import { Link } from "react-router-dom";
 
 function ApproveDonorBook({ donation, ApprovalRejected, ApprovalAccepted }) {
+  const message="Hello %0D  We have approved your request for ............................. "
+
   return (
     <div className="Heroes">
       <img src={donation.image} alt="Heroe's image" />
       <p style={{ textAlign: "center" }}>{donation.title}</p>
       <p style={{ textAlign: "center" }}>{donation.currentReciever}</p>
-      <p style={{ textAlign: "center" }}>{donation.updatedAt}</p>
+      <p style={{ textAlign: "center" }}>{Date(donation.updatedAt).split("G")[0]}</p>
       <div className="HeroesDetails">
         <button
           className="PromoButtonPrimary"
@@ -18,13 +20,13 @@ function ApproveDonorBook({ donation, ApprovalRejected, ApprovalAccepted }) {
         >
           Approve
         </button>
-        <a href="mailto:email@address.com?subject=Hello world&body=Line one%0DLine two" target="_blank" rel="noopener noreferrer">
+        <a href={`mailto:${donation.currentReciever}?subject=Acceptance of Request&body=${message}`} target="_blank" rel="noopener noreferrer">
           <button
             className="PromoButtonTertiary"
             type="button"
             onClick={(e) => console.log("mail sent")}
           >
-            Send Mail
+            Mail
           </button>
         </a>
         <button

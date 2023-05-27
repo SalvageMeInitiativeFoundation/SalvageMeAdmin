@@ -21,10 +21,10 @@ const PromoteUsertoOrg = () => {
 
     try {
       const BookData = await axios.get(
-        `http://localhost:5000/salvageme/auth/users`
+        `${process.env.REACT_APP_BASE_URL}/auth/users`
       );
       setUsers(BookData.data);
-      console.log(users);
+      console.log(BookData.data);
       setIsloading(false);
     } catch (error) {
       setIsloading(false);

@@ -9,7 +9,7 @@ import Pie from "../components/pieGraph";
 
 function Home() {
   const [isLoading, setIsloading] = useState(true);
-  const [donations, setDonations] = useState(null);
+  const [donations, setDonations] = useState([]);
 
   useEffect(() => {
     console.log("fetching");
@@ -20,10 +20,10 @@ function Home() {
     try {
       setIsloading(true)
       const BookData = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/Donation/`
+        `${process.env.REACT_APP_BASE_URL}/donation/`
       );
       setDonations(BookData.data);
-      console.log(donations);
+      console.log(BookData.data);
       setIsloading(false);
     } catch (error) {
       setIsloading(false)
@@ -33,38 +33,40 @@ function Home() {
 
 
   return (
+
+  
     <>
       <div>
         <div className="Dashboard">
           <div className="DashboardMini">
             <div className="C1"></div>
-            <h3>1000</h3>
+            <h3>{donations.filter((donation)=>donation.category=="Philosophy & Psychology").length}</h3>
+            <p>Philosophy & Psychology</p>
+          </div>
+          <div className="DashboardMini">
+            <div className="C1"></div>
+            <h3>{donations.filter((donation)=>donation.category=="Religion").length}</h3>
             <p>Religion</p>
           </div>
           <div className="DashboardMini">
             <div className="C1"></div>
-            <h3>1000</h3>
-            <p>Religion</p>
+            <h3>{donations.filter((donation)=>donation.category=="Geography & History").length}</h3>
+            <p>Geography & History</p>
           </div>
           <div className="DashboardMini">
             <div className="C1"></div>
-            <h3>1000</h3>
-            <p>Religion</p>
+            <h3>{donations.filter((donation)=>donation.category=="Literature").length}</h3>
+            <p>Literature</p>
           </div>
           <div className="DashboardMini">
             <div className="C1"></div>
-            <h3>1000</h3>
-            <p>Religion</p>
+            <h3>{donations.filter((donation)=>donation.category=="Science & Math").length}</h3>
+            <p>Science & Math</p>
           </div>
           <div className="DashboardMini">
             <div className="C1"></div>
-            <h3>1000</h3>
-            <p>Religion</p>
-          </div>
-          <div className="DashboardMini">
-            <div className="C1"></div>
-            <h3>1000</h3>
-            <p>Religion</p>
+            <h3>{donations.filter((donation)=>donation.category=="Social Science").length}</h3>
+            <p>Social Science</p>
           </div>
         </div>
         <h3 className="HeroesTitle">Growth graph totally donated</h3>
