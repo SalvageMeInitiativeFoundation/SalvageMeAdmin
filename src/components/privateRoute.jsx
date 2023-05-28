@@ -9,7 +9,7 @@ function PrivateRoute(){
     // useEffect(()=>{
     //     getLocalUser();
     //    },[])
-    return((user[0].isAdmin==true||user[0].accountType!='user')?<Outlet/>:<Navigate to={'/login'}/>)
+    return((user.length>0 && (user[0].isAdmin==true||user[0].accountType!='user'))?<Outlet/>:<Navigate to='/login'/>)
 
 }
 export default PrivateRoute;
