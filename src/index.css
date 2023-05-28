@@ -159,7 +159,7 @@ p {
 .NavBarContainer{
   /* position: absolute; */
   /* top: 0px; */
-  width: calc(30px+20vw);
+  /* width: calc(30px+20vw); */
   /* flex-direction: column; */
   height: 100vh;
   margin-right: 10px;
