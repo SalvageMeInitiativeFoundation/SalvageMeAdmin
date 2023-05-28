@@ -24,18 +24,18 @@ function App() {
       <NavBar />
         <Routes>
           <Route path="/" element={<Home />} />
-          {/* <Route path="/approveDonation" element={<PrivateRoute />}> */}
+          <Route path="/approveDonation" element={<PrivateRoute />}>
             <Route path="/approveDonation" element={<ApproveDonation />} />
-          {/* </Route> */}
-          {/* <Route path="/acceptDonation" element={<PrivateRoute />}> */}
+          </Route>
+          <Route path="/acceptDonation" element={<PrivateRoute />}>
             <Route path="/acceptDonation" element={<AcceptDonation />} />
-          {/* </Route> */}
-          {/* <Route path="/promoteUsertoVolunteer" element={<PrivateRoute />}> */}
+          </Route>
+          <Route path="/promoteUsertoVolunteer" element={<PrivateRoute />}>
             <Route path="/promoteUsertoVolunteer" element={<PromoteUsertoVolunteer />} />
-          {/* </Route> */}
-          {/* <Route path="/promoteUsertoOrg" element={<PrivateRoute />}> */}
+          </Route>
+          <Route path="/promoteUsertoOrg" element={<PrivateRoute />}>
             <Route path="/promoteUsertoOrg" element={<PromoteUsertoOrg />} />
-          {/* </Route> */}
+          </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/signUp" element={<SignUp />} />
         </Routes>

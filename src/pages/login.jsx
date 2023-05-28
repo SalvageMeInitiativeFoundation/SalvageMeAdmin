@@ -23,7 +23,7 @@ function Login(){
            console.log(loginResponse.data)
            if(loginResponse.status==200){
 
-            setLocalUser([loginResponse.data]);
+            setLocalUser(loginResponse.data);
             console.log('==============================')
             console.log(user)
         
