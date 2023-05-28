@@ -18,9 +18,9 @@ const PromoteUsertoVolunteer=()=>{
       setIsloading(true);
   
       try {
-        const BookData = await axios.get(`http://localhost:5000/salvageme/auth/users`);
+        const BookData = await axios.get(`${process.env.REACT_APP_BASE_URL}/auth/users`);
         setUsers(BookData.data);
-        console.log(users);
+        console.log(BookData.data);
         setIsloading(false);
   
       } catch (error) {
@@ -36,7 +36,7 @@ const PromoteUsertoVolunteer=()=>{
 
       try {
         const BookData = await axios.get(
-          `${process.env.REACT_APP_BASE_URL}auth/user`,data
+          `${process.env.REACT_APP_BASE_URL}/auth/user`,data
         );
         setUsers(BookData.data);
         setIsloading((prev) => !prev);

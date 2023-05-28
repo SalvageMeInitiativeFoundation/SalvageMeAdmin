@@ -152,7 +152,7 @@ p {
   justify-content: center;
   flex-wrap: wrap;
   
-    border: #050505 solid 5px;
+    /* border: #050505 solid 5px; */
     height: 80vh;
     overflow-y: auto;
 }
@@ -217,8 +217,9 @@ p {
   margin: 0px 0px 0px 10px;
   font-weight: 450;
 } */
-.HeroesTitle{width:90%;
-border:'solid black 20px'
+.HeroesTitle{
+  margin: 3px 3px;
+  width:90%;
 }
 
 .Selected {
