@@ -70,9 +70,9 @@ function Home() {
           </div>
         </div>
         <h3 className="HeroesTitle">Growth graph totally donated</h3>
-        <div lassName="flexLayout"> 
+        <div className="flexLayout"> 
         {isLoading?<Spinner></Spinner>:<LineGraph data={donations} ></LineGraph>}  
-        <Pie></Pie>   
+        <Pie  data={donations} ></Pie>   
         
         </div>
 

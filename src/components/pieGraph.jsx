@@ -1,46 +1,80 @@
 import { ResponsivePie } from '@nivo/pie';
 
-const Pie = () => {
+const Pie = ({data}) => {
 
-    const data = [
+    const graphData = [
         {
-          id: "java",
-          label: "java",
-          value: 195,
+          id: "Language",
+          label: "Language",
+          value: data.filter((d)=>d.category=='Language').length,
           color: "hsl(90, 70%, 50%)"
         },
         {
-          id: "erlang",
-          label: "erlang",
-          value: 419,
+          id: "Religion",
+          label: "Religion",
+          value: data.filter((d)=>d.category=='Religion').length,
           color: "hsl(56, 70%, 50%)"
         },
         {
-          id: "ruby",
-          label: "ruby",
-          value: 407,
+          id: "Social Science",
+          label: "Social Science",
+          value: data.filter((d)=>d.category=='Social Science').length,
           color: "hsl(103, 70%, 50%)"
         },
         {
-          id: "haskell",
-          label: "haskell",
-          value: 474,
+          id: "Ap. Science & Technology",
+          label: "Ap. Science & Technology",
+          value: data.filter((d)=>d.category=='Ap. Science & Technology').length,
           color: "hsl(186, 70%, 50%)"
         },
         {
-          id: "go",
-          label: "go",
-          value: 71,
+          id: "Art Recreation",
+          label: "Art Recreation",
+          value: data.filter((d)=>d.category=='Art Recreation').length,
           color: "hsl(104, 70%, 50%)"
+        },
+        {
+          id: "Science & Math",
+          label: "Science & Math",
+          value: data.filter((d)=>d.category=='Science & Math').length,
+          color: "hsl(109, 70%, 50%)"
+        },
+        
+        {
+          id: "Generalities",
+          label: "Generalities",
+          value: data.filter((d)=>d.category=='Generalities').length,
+          color: "hsl(79, 70%, 50%)"
+        },
+        {
+          id: "Literature",
+          label: "Literature",
+          value: data.filter((d)=>d.category=='Literature').length,
+          color: "hsl(80, 70%, 50%)"
+        },
+        {
+          id: "Geography & History",
+          label: "Geography & History",
+          value: data.filter((d)=>d.category=='Geography & History').length,
+          color: "hsl(60, 70%, 50%)"
+        },
+        {
+          id: "Philosophy & Psychology",
+          label: "Philosophy & Psychology",
+          value: data.filter((d)=>d.category=='Philosophy & Psychology').length,
+          color: "hsl(20, 70%, 50%)"
         }
+       
       ];
       
 
 
 
     return (
+      <div style={{border:"green solid 7px",width:"500px",height:"400px"}}>
+
       <ResponsivePie
-        data={data}
+        data={graphData}
         margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
         innerRadius={0.5}
         padAngle={0.7}
@@ -55,6 +89,7 @@ const Pie = () => {
         arcLabelsSkipAngle={10}
         arcLabelsTextColor={{ from: "color", modifiers: [["darker", 2]] }}
       />
+      </div>
     );
   };
   export default Pie;
