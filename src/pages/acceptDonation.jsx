@@ -49,10 +49,10 @@ function AcceptDonation() {
         recieved
       );
       if (donationResponse.status == 200) {
-        console.log('===============recieving donation==============')
+        console.log("===============recieving donation==============");
         // TODO:map through donations and remove donation aaccepted
         console.log(donationResponse.data);
-        setDonations(()=>donations.filter((donation)=>donation._id!=id));
+        setDonations(() => donations.filter((donation) => donation._id != id));
         // updateDonationCount();
         setIsloading(false);
       }
@@ -76,10 +76,10 @@ function AcceptDonation() {
         recieved
       );
       if (donationResponse.status == 200) {
-        console.log('===============Rejected=================')
+        console.log("===============Rejected=================");
         // TODO:map through donations and remove donation aaccepted
         console.log(donationResponse.data);
-        setDonations(()=>donations.filter((donation)=>donation._id!=id));
+        setDonations(() => donations.filter((donation) => donation._id != id));
         // updateDonationCount();
         setIsloading(false);
       }
@@ -110,24 +110,33 @@ function AcceptDonation() {
   return (
     <div>
       <h3 className="HeroesTitle">Accept Donation</h3>
+      <div className="HeroesListTitle">
+        <p style={{ width: "60px" }}>Image</p>
+        <p style={{ textAlign: "left", flex: "2" }}>Title</p>
+        <p style={{ textAlign: "left", flex: "2" }}>Donor</p>
+        <p style={{ textAlign: "left", flex: "1" }}>Date</p>
+        <div className="HeroesDetails">
+          <p>Action</p>
+        </div>
+      </div>
       {isLoading ? (
         <Spinner></Spinner>
       ) : (
         <div className="flexLayout">
           {donations.map((donation, index) => {
             console.log(donation);
-            if(donation.status=='pending'){
+            if (donation.status == "pending") {
+              console.log(donation);
               return (
-              <DonorBook
-                key={index}
-                donation={donation}
-                user={user}
-                DonationAccepted={DonationAccepted}
-                DonationRejected={DonationRejected}
-              />
-            );
+                <DonorBook
+                  key={index}
+                  donation={donation}
+                  user={user}
+                  DonationAccepted={DonationAccepted}
+                  DonationRejected={DonationRejected}
+                />
+              );
             }
-            
           })}
         </div>
       )}

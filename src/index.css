@@ -9,44 +9,41 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-input[type=text] {
+input[type="text"] {
   border-radius: 10px;
   width: 100%;
   height: 40px;
   margin-top: 5px;
   margin-bottom: 5px;
 }
-input[type=email] {
+input[type="email"] {
   border-radius: 10px;
   width: 100%;
   height: 40px;
   margin-top: 5px;
   margin-bottom: 5px;
 }
-input[type=link] {
+input[type="link"] {
   border-radius: 10px;
   width: 100%;
   height: 40px;
   margin-top: 5px;
   margin-bottom: 5px;
 }
-input[type=password] {
+input[type="password"] {
   border-radius: 10px;
   width: 100%;
   height: 40px;
   margin-top: 5px;
   margin-bottom: 5px;
 }
-input[type=checkbox] {
+input[type="checkbox"] {
   border-radius: 10px;
   margin-top: 5px;
   margin-bottom: 5px;
   width: 100%;
   height: 20px;
-  
 }
-
-
 
 button {
   background-color: #9747ff;
@@ -59,9 +56,23 @@ button {
   color: white;
   cursor: pointer;
 }
-.PromoButtonPrimary{
+
+.PromoButtonPrimary {
   background-color: #9747ff;
-  padding: 15px 20px 15px 20px;
+  padding: 5px 5px;
+  border-radius: 10px;
+  width: 100px;
+  border: none;
+  /* display: block; */
+  /* margin: auto; */
+  margin: 1px 2px;
+  color: white;
+  cursor: pointer;
+}
+
+.PromoButtonSecondary {
+  background-color: greenyellow;
+  padding: 5px 5px;
   border-radius: 10px;
   width: 100px;
   border: none;
@@ -70,28 +81,15 @@ button {
   margin: 2px 2px;
   color: white;
   cursor: pointer;
-}
-
-.PromoButtonSecondary{
-  background-color:greenyellow;
-  padding: 15px 20px 15px 20px;
-  border-radius: 10px;
-  width: 100px;
-  border: none;
-  /* display: block; */
-  /* margin: auto; */
-  margin: 2px 2px;
-  color: white;
-  cursor: pointer;
   margin: 2px 2px;
 }
 
-.PromoButtonTertiary{
-  background-color:whitesmoke;
-  padding: 15px 20px 15px 20px;
+.PromoButtonTertiary {
+  background-color: transparent;
+  padding: 5px 5px;
   border-radius: 10px;
   width: 100px;
-  border: red solid 2px;
+  border: red solid 1px;
   /* display: block; */
   /* margin: auto; */
   color: red;
@@ -99,8 +97,7 @@ button {
   margin: 2px 2px;
 }
 
-
-.LogoutButton{
+.LogoutButton {
   bottom: 50px;
 }
 .formButtons {
@@ -114,15 +111,15 @@ button {
   padding: 14px 20px 14px 20px;
   width: 20vw;
 }
-.formButton{
+.formButton {
   padding: 14px 20px 14px 20px;
   margin: 2px;
   color: #050505;
   background-color: #ffffff;
-  border:  #9747ff solid 1px;
+  border: #9747ff solid 1px;
   width: 20vw;
 }
-.DonateButton{
+.DonateButton {
   display: block;
   margin: auto;
 }
@@ -141,29 +138,27 @@ p {
   margin-bottom: 10px;
 }
 
-.SideBarLayout{
+.SideBarLayout {
   display: grid;
   grid-template-columns: 150px 4fr;
 }
 
 .flexLayout {
   display: flex;
-  place-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  
-    /* border: #050505 solid 5px; */
-    height: 80vh;
-    overflow-y: auto;
+
+  /* border: #050505 solid 5px; */
+  height: 75vh;
+  overflow-y: auto;
 }
-.NavBarContainer{
+.NavBarContainer {
   /* position: absolute; */
   /* top: 0px; */
   /* width: calc(30px+20vw); */
   /* flex-direction: column; */
   height: 100vh;
   margin-right: 10px;
-
 }
 .navBarHeader {
   width: 100%;
@@ -192,40 +187,36 @@ p {
   /* align-items: center; */
 }
 
-.NavLoginLogoutButtonContainer{
+.NavLoginLogoutButtonContainer {
   top: 80vh;
   position: absolute;
 }
 
-
-
-
-.NavLoginLogoutButton{
+.NavLoginLogoutButton {
   background-color: #9747ff;
   padding: 5px 5px 5px 5px;
   border-radius: 10px;
   width: 70px;
-  top:50%;
+  top: 50%;
   border: none;
   /* display: block; */
   /* margin: auto; */
   color: white;
   cursor: pointer;
-
 }
 /* .navBarList li {
   margin: 0px 0px 0px 10px;
   font-weight: 450;
 } */
-.HeroesTitle{
+.HeroesTitle {
   margin: 3px 3px;
-  width:90%;
+  width: 90%;
 }
 
 .Selected {
   color: white;
   margin: 5px 10px 5px 10px;
-  
+
   font-weight: bold;
 }
 .unSelected {
@@ -233,7 +224,6 @@ p {
   margin: 5px 10px 5px 10px;
   /* font-weight: bold; */
 }
-
 
 ul {
   list-style-type: none;
@@ -246,28 +236,45 @@ ul {
 .Heroes {
   display: flex;
   place-items: center;
+  gap: 5px;
   flex-direction: row;
   padding: 10px;
   width: 70vw;
-  height: 177px;
-  margin: 0px 7px 15px 7px;
+  height: 60px;
+  margin: 0px 7px 2px 7px;
   border-radius: 10px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   justify-content: space-evenly;
 }
+
+.HeroesListTitle {
+  display: flex;
+  place-items: center;
+  gap: 5px;
+  flex-direction: row;
+  padding: 10px;
+  width: 70vw;
+  height: 30px;
+  margin: 5px auto;
+  border-radius: 10px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 1px 0px;
+  justify-content: space-evenly;
+}
+
 .Heroes:hover {
   background-color: #dfd5eb;
   /* width: 175px;
   height: 190px; */
 }
 .Heroes img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50px;
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
 }
 
 .HeroesDetails {
   display: flex;
+  flex: 3;
   justify-content: space-evenly;
   align-items: center;
   flex-wrap: wrap;
@@ -290,7 +297,7 @@ ul {
   border-radius: 50px;
 }
 
-#volunteerPoint{
+#volunteerPoint {
   width: 20px;
 }
 
@@ -332,7 +339,6 @@ ul {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
- 
 }
 
 .DashboardMini {
@@ -347,15 +353,12 @@ ul {
   /* border: #050505 solid 5px; */
   padding: 0px 10px;
   margin: 10px;
-  
 }
-
 
 .C1 {
   background-color: #f5c109;
   height: 7px;
 }
-
 
 .LoginForm {
   display: block;
@@ -369,7 +372,6 @@ ul {
   place-items: center;
 }
 
-
 .LogInButton {
   display: block;
   margin-top: 10px;
@@ -378,11 +380,10 @@ ul {
   margin: auto;
 }
 
-
 .SignUpForm {
   display: block;
   margin: auto;
-  width: 50vw;;
+  width: 50vw;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   padding: 20px;
   margin-top: 100px;
@@ -397,9 +398,6 @@ ul {
   grid-template-columns: 1fr 1fr;
   place-items: center;
 }
-
-
-
 
 .SignUpButton {
   display: block;
@@ -428,16 +426,14 @@ ul {
   gap: 10px 10px;
   margin-bottom: 10px;
   align-items: center;
-  
 }
-.ProfileImageDivContainer{
+.ProfileImageDivContainer {
   display: block;
   margin: auto;
 }
-.ProfileImageContainer:hover{
+.ProfileImageContainer:hover {
   cursor: pointer;
 }
-
 
 .DonorBook {
   width: 150px;
@@ -488,7 +484,6 @@ ul {
   width: 30vw;
 }
 
-
 .dropdown-container {
   text-align: left;
   border: 2px solid black;
@@ -533,7 +528,6 @@ ul {
   position: relative;
   border-radius: 10px;
   margin: 5px 0px 5px 0px;
-  
 }
 
 .Filter-input {
@@ -566,25 +560,22 @@ ul {
   background-color: #9747ff;
 }
 
-.ProfileImageContainer{
+.ProfileImageContainer {
   border-radius: 15px;
   width: 150px;
-  height:150px;
+  height: 150px;
   border: #050505 solid 1px;
   margin-bottom: 20px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   overflow: hidden;
   cursor: pointer;
-  
-
-
 }
-.ProfileImage{
+.ProfileImage {
   width: 100%;
   height: 100%;
   object-fit: fit;
 }
-.CloudImage{
+.CloudImage {
   display: block;
   width: 50%;
   height: 100%;
@@ -593,9 +584,6 @@ ul {
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
-  
-  
-
   .SignUpFormInput {
     display: flex;
     flex-direction: column;
@@ -605,42 +593,37 @@ ul {
   .SignUpFormInput div {
     width: 100%;
   }
- 
-  
-  .RequestSearch{
+
+  .RequestSearch {
     display: flex;
     flex-direction: column;
     align-items: stretch;
   }
-  .Filter-container{
+  .Filter-container {
     display: flex;
     float: right;
   }
 
-
   .DonateFormDetails {
     display: grid;
-    grid-template-columns: 1fr ;
+    grid-template-columns: 1fr;
     gap: 10px 10px;
     margin-bottom: 10px;
     align-items: center;
   }
-  
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 600px)and (max-width:768px) {
-  
-  .RequestSearch{
+@media only screen and (min-width: 600px) and (max-width: 768px) {
+  .RequestSearch {
     display: flex;
     flex-direction: column;
     align-items: stretch;
   }
-  .Filter-container{
+  .Filter-container {
     display: flex;
     float: right;
   }
-
 
   .DonateFormDetails {
     display: grid;
@@ -649,14 +632,20 @@ ul {
     margin-bottom: 10px;
     align-items: center;
   }
- 
 
+  .PromoButtonTertiary {
+    width: 70px;
+  }
+  .PromoButtonPrimary {
+    width: 70px;
+  }
+  .PromoButtonSecondary {
+    width: 70px;
+  }
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px)and (max-width:992px) {
-  
-
+@media only screen and (min-width: 768px) and (max-width: 992px) {
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
@@ -675,7 +664,7 @@ ul {
   .SignUpForm {
     display: block;
     margin: auto;
-    width: 40vw;;
+    width: 40vw;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     padding: 20px;
     margin-top: 100px;
@@ -684,12 +673,11 @@ ul {
     place-items: center;
   }
   .Donate {
-    
     margin: auto;
-    
+
     width: 40vw;
   }
-  .SignUpFormInputFormColumn{
+  .SignUpFormInputFormColumn {
     width: 100%;
   }
   .DonateFormDetails {
@@ -699,8 +687,6 @@ ul {
     margin-bottom: 10px;
     align-items: center;
   }
-
-
 }
 
 code {

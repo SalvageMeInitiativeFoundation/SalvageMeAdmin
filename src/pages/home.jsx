@@ -109,7 +109,6 @@ function Home() {
           ) : (
             <Pierecept data={donations}></Pierecept>
           )}
-           {/* <LineGraph data={donations}></LineGraph> */}
           <Pie data={donations}></Pie>
         </div>
       </div>

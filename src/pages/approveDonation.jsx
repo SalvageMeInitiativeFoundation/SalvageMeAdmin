@@ -155,7 +155,15 @@ function ApproveDonation() {
         </div>
       </div>
       <h3 className="HeroesTitle">Approve Users Request</h3>
-
+      <div className="HeroesListTitle">
+        <p style={{ width: "60px" }}>Image</p>
+        <p style={{ textAlign: "left", flex: "2" }}>Title</p>
+        <p style={{ textAlign: "left", flex: "2" }}>Receiver</p>
+        <p style={{ textAlign: "left", flex: "1" }}>Date</p>
+        <div className="HeroesDetails">
+          <p>Action</p>
+        </div>
+      </div>
       {isLoading ? (
         <Spinner></Spinner>
       ) : donations.length < 1 ? (

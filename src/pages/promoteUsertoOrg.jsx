@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import Spinner from "../shared/spinner";
 import Heroes from "../components/heroes";
@@ -35,10 +35,11 @@ const PromoteUsertoOrg = () => {
   //   TODO:Test
   const FetchDataByTitle = async (title) => {
     setIsloading(true);
-    const data={email:title}
+    const data = { email: title };
     try {
       const BookData = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}auth/user`,data
+        `${process.env.REACT_APP_BASE_URL}auth/user`,
+        data
       );
       setUsers(BookData.data);
       setIsloading((prev) => !prev);
@@ -130,13 +131,28 @@ const PromoteUsertoOrg = () => {
         </div>
 
         <h3 className="HeroesTitle">Promote user to Organization</h3>
+        <div className="HeroesListTitle">
+          <p style={{ width: "60px" }}>Image</p>
+          <p style={{ textAlign: "left", flex: "2" }}>User</p>
+          <p style={{ textAlign: "left", flex: "1" }}>Role</p>
+          <div className="HeroesDetails">
+            <p>Action</p>
+          </div>
+        </div>
         {isLoading ? (
           <Spinner></Spinner>
         ) : (
           <div className="flexLayout">
             {users.map((user, index) => {
               if (user.accountType != "admin") {
-                return <Heroes key={index} user={user} PromotionAccepted={PromotionAccepted} PromotionRejected={PromotionRejected} />;
+                return (
+                  <Heroes
+                    key={index}
+                    user={user}
+                    PromotionAccepted={PromotionAccepted}
+                    PromotionRejected={PromotionRejected}
+                  />
+                );
               }
             })}
           </div>

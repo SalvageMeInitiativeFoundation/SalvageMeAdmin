@@ -9,11 +9,12 @@ function DonorBook({donation,user,DonationAccepted,DonationRejected}) {
   return (
     <div className="Heroes">
       <img src={donation.image} alt="Heroe's image" />
-      <p style={{ textAlign: "center" }}>{donation.title}</p>
-      <p style={{ textAlign: "center" }}>{donation.currentReciever}</p>
-      <p style={{ textAlign: "center" }}>{donation.updatedAt}</p>
+      <p style={{ textAlign: "left",flex:'2' }}>{donation.title}</p>
+      <p style={{ textAlign: "left",flex:'2' }}>{donation.donor}</p>
+      <p style={{ textAlign: "left",flex:'1' }}>{Date(donation.updatedAt).split("G")[0]}</p>
+      
       <div className="HeroesDetails">
-        <button className="PromoButtonPrimary" type="button" onClick={(e)=>DonationAccepted(donation._id,e)}>
+        <button className="PromoButtonPrimary " type="button" onClick={(e)=>DonationAccepted(donation._id,e)}>
           Accept
         </button>
         <a href={`mailto:${donation.donor}?subject=Appreciation for Donation&body=${message}`} target="_blank" rel="noopener noreferrer">
