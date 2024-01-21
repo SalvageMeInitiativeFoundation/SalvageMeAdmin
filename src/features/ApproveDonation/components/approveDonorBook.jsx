@@ -1,17 +1,24 @@
 import axios from "axios";
 import React, { useEffect, useState, useContext } from "react";
-import { UserContext } from "../context/userContext/userContext";
+import { UserContext } from "../../../context/userContext/userContext";
 import { Link } from "react-router-dom";
 
 function ApproveDonorBook({ donation, ApprovalRejected, ApprovalAccepted }) {
-  const message="Hello %0D  We have approved your request for ............................. "
+  const message =
+    "Hello %0D  We have approved your request for ............................. ";
 
   return (
     <div className="Heroes">
       <img src={donation.image} alt="Heroe's image" />
-      <p style={{ textAlign: "left",flex:'2' }}>{donation.title}</p>
-      <p style={{ textAlign: "left",flex:'2' }}>{donation.currentReciever}</p>
-      <p style={{ textAlign: "left",flex:'1' }}>{Date(donation.updatedAt).split("G")[0]}</p>
+      <p style={{ textAlign: "left", flex: "2" }}>{donation.title}</p>
+      <p style={{ textAlign: "left", width: "200px" }}>
+        {donation.currentReciever.length > 20
+          ? donation.currentReciever.slice(0, 20).concat("...")
+          : donation.currentReciever}
+      </p>
+      <p style={{ textAlign: "left", flex: "1" }}>
+        {Date(donation.updatedAt).split("G")[0]}
+      </p>
       <div className="HeroesDetails">
         <button
           className="PromoButtonPrimary"
@@ -20,7 +27,11 @@ function ApproveDonorBook({ donation, ApprovalRejected, ApprovalAccepted }) {
         >
           Approve
         </button>
-        <a href={`mailto:${donation.currentReciever}?subject=Acceptance of Request&body=${message}`} target="_blank" rel="noopener noreferrer">
+        <a
+          href={`mailto:${donation.currentReciever}?subject=Acceptance of Request&body=${message}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <button
             className="PromoButtonTertiary"
             type="button"

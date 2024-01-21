@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import DonorBook from "../components/donorBook";
+import DonorBook from "../features/acceptDonation/components/donorBook";
 import Dropdown from "../components/dropdown";
 import axios from "axios";
 import { MdCloudUpload } from "react-icons/md";
@@ -111,9 +111,9 @@ function AcceptDonation() {
     <div>
       <h3 className="HeroesTitle">Accept Donation</h3>
       <div className="HeroesListTitle">
-        <p style={{ width: "60px" }}>Image</p>
+        <p style={{ width: "69px" }}>Image</p>
         <p style={{ textAlign: "left", flex: "2" }}>Title</p>
-        <p style={{ textAlign: "left", flex: "2" }}>Donor</p>
+        <p style={{ textAlign: "left",width:'200px' }}>Donor</p>
         <p style={{ textAlign: "left", flex: "1" }}>Date</p>
         <div className="HeroesDetails">
           <p>Action</p>

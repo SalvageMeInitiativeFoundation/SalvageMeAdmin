@@ -145,12 +145,33 @@ p {
 
 .flexLayout {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* flex-wrap: wrap; */
+  height: 75vh;
+  overflow-y: scroll;
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.flexLayout::-webkit-scrollbar {
+  display: none;  /* Safari and Chrome */
+}
+.GRAPHDashboardContainer {
+  display: flex;
   justify-content: center;
   flex-wrap: wrap;
 
   /* border: #050505 solid 5px; */
-  height: 75vh;
+  height: 65vh;
   overflow-y: auto;
+}
+.DashboardFlex{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  align-items: center;
 }
 .NavBarContainer {
   /* position: absolute; */
@@ -267,8 +288,8 @@ ul {
   height: 190px; */
 }
 .Heroes img {
-  width: 50px;
-  height: 50px;
+  width: 69px;
+  height: 69px;
   border-radius: 10px;
 }
 

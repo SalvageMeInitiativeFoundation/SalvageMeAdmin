@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import Heroes from "../components/heroes";
+import Heroes from "../features/Promote2Org/components/heroes";
 import Partners from "../components/partners";
-import Volunteers from "../components/volunteers";
+import Volunteers from "../features/Promote2Volunteer/components/volunteers";
 import axios from "axios";
 import Spinner from "../shared/spinner";
-import LineGraph from "../components/lineGraph";
-import Pie from "../components/pieGraph";
-import Pierecept from "../components/pierecept";
+import LineGraph from "../features/home/components/lineGraph";
+import Pie from "../features/home/components/pieGraph";
+import Pierecept from "../features/home/components/pierecept";
 
 function Home() {
   const [isLoading, setIsloading] = useState(true);
@@ -103,13 +103,15 @@ function Home() {
           </div>
         </div>
         <h4 className="HeroesTitle">Growth graph totally donated</h4>
-        <div className="flexLayout">
+        <div className="GRAPHDashboardContainer">
           {isLoading ? (
             <Spinner></Spinner>
           ) : (
-            <Pierecept data={donations}></Pierecept>
+            <div className="DashboardFlex">
+              <Pierecept data={donations}></Pierecept>
+              <Pie data={donations}></Pie>
+            </div>
           )}
-          <Pie data={donations}></Pie>
         </div>
       </div>
     </>

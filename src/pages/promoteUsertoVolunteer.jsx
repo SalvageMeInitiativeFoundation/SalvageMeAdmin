@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Spinner from "../shared/spinner";
-import Heroes from "../components/heroes";
-import Volunteers from "../components/volunteers";
+import Heroes from "../features/Promote2Org/components/heroes";
+import Volunteers from "../features/Promote2Volunteer/components/volunteers";
 
 const PromoteUsertoVolunteer = () => {
   const [isLoading, setIsloading] = useState(true);
@@ -111,52 +111,50 @@ const PromoteUsertoVolunteer = () => {
   };
 
   return (
-    <>
-      <div>
-        <div className="RequestSearch">
-          <div className="RequestSearchOne">
-            <input
-              type="text"
-              name="BooKName"
-              id="bookName"
-              placeholder="Search for user"
-              onChange={handleChange}
-              value={singleSearchValue}
-            />
-            <button type="button" onClick={handleSingleSearch}>
-              Search
-            </button>
-          </div>
+    <div>
+      <div className="RequestSearch">
+        <div className="RequestSearchOne">
+          <input
+            type="text"
+            name="BooKName"
+            id="bookName"
+            placeholder="Search for user"
+            onChange={handleChange}
+            value={singleSearchValue}
+          />
+          <button type="button" onClick={handleSingleSearch}>
+            Search
+          </button>
         </div>
-        <h3 className="HeroesTitle">Promote user to volunteer</h3>
-        <div className="HeroesListTitle">
-          <p style={{ width: "60px" }}>Image</p>
-          <p style={{ textAlign: "left", flex: "2" }}>User</p>
-          <p style={{ textAlign: "left", flex: "1" }}>Role</p>
-          <div className="HeroesDetails">
-            <p>Action</p>
-          </div>
-        </div>
-        {users == null ? (
-          <Spinner></Spinner>
-        ) : (
-          <div className="flexLayout">
-            {users.map((user, index) => {
-              if (user.accountType != "admin") {
-                return (
-                  <Volunteers
-                    key={index}
-                    user={user}
-                    PromotionAccepted={PromotionAccepted}
-                    PromotionRejected={PromotionRejected}
-                  />
-                );
-              }
-            })}
-          </div>
-        )}
       </div>
-    </>
+      <h3 className="HeroesTitle">Promote user to volunteer</h3>
+      <div className="HeroesListTitle">
+        <p style={{ width: "69px" }}>Image</p>
+        <p style={{ textAlign: "left", flex: "2" }}>User</p>
+        <p style={{ textAlign: "left", width:"100px" }}>Role</p>
+        <div className="HeroesDetails">
+          <p>Action</p>
+        </div>
+      </div>
+      {users == null ? (
+        <Spinner></Spinner>
+      ) : (
+        <div className="flexLayout">
+          {users.map((user, index) => {
+            if (user.accountType != "admin") {
+              return (
+                <Volunteers
+                  key={index}
+                  user={user}
+                  PromotionAccepted={PromotionAccepted}
+                  PromotionRejected={PromotionRejected}
+                />
+              );
+            }
+          })}
+        </div>
+      )}
+    </div>
   );
 };
 

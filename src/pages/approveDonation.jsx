@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useContext } from "react";
-import DonorBook from "../components/donorBook";
+import DonorBook from "../features/acceptDonation/components/donorBook";
 import { IoIosFunnel } from "react-icons/io";
 import Filter from "../components/filter";
 import axios from "axios";
 import Spinner from "../shared/spinner";
-import ApproveDonorBook from "../components/approveDonorBook";
+import ApproveDonorBook from "../features/ApproveDonation/components/approveDonorBook";
 import { UserContext } from "../context/userContext/userContext";
 
 function ApproveDonation() {
@@ -130,7 +130,7 @@ function ApproveDonation() {
   };
 
   return (
-    <div className="layoutContent">
+    <div>
       <div className="RequestSearch">
         <div className="RequestSearchOne">
           <input
@@ -156,9 +156,9 @@ function ApproveDonation() {
       </div>
       <h3 className="HeroesTitle">Approve Users Request</h3>
       <div className="HeroesListTitle">
-        <p style={{ width: "60px" }}>Image</p>
+        <p style={{ width: "69px" }}>Image</p>
         <p style={{ textAlign: "left", flex: "2" }}>Title</p>
-        <p style={{ textAlign: "left", flex: "2" }}>Receiver</p>
+        <p style={{ textAlign: "left", width: "200px" }}>Receiver</p>
         <p style={{ textAlign: "left", flex: "1" }}>Date</p>
         <div className="HeroesDetails">
           <p>Action</p>

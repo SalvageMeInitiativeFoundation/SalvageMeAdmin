@@ -12,7 +12,7 @@ function Heroes({ user, PromotionAccepted, PromotionRejected }) {
     <div className="Heroes">
       <img src={user.image} alt="Heroe's image" />
       <p style={{ textAlign: "left",flex:'2' }}>{user.email}</p>
-      <p style={{ textAlign: "left",flex:'1' }}>{user.accountType}</p>
+      <p style={{ textAlign: "left",width:"100px"  }}>{user.accountType}</p>
 
       <div className="HeroesDetails">
         <button
