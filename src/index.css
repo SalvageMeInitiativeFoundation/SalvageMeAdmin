@@ -44,7 +44,13 @@ input[type="checkbox"] {
   width: 100%;
   height: 20px;
 }
-
+li{
+  text-decoration: none;
+}
+ul {
+  list-style-type: none;
+  padding: 0px;
+}
 button {
   background-color: #9747ff;
   padding: 15px 20px 15px 20px;
@@ -56,7 +62,6 @@ button {
   color: white;
   cursor: pointer;
 }
-
 .PromoButtonPrimary {
   background-color: #9747ff;
   padding: 5px 5px;
@@ -69,7 +74,6 @@ button {
   color: white;
   cursor: pointer;
 }
-
 .PromoButtonSecondary {
   background-color: greenyellow;
   padding: 5px 5px;
@@ -83,20 +87,26 @@ button {
   cursor: pointer;
   margin: 2px 2px;
 }
-
 .PromoButtonTertiary {
   background-color: transparent;
   padding: 5px 5px;
   border-radius: 10px;
   width: 100px;
   border: red solid 1px;
-  /* display: block; */
-  /* margin: auto; */
   color: red;
   cursor: pointer;
   margin: 2px 2px;
 }
-
+.MailButton{
+  background-color: transparent;
+  padding: 5px 5px;
+  border-radius: 10px;
+  width: 100px;
+  border: green solid 1px;
+  color: green;
+  cursor: pointer;
+  margin: 2px 2px;
+}
 .LogoutButton {
   bottom: 50px;
 }
@@ -123,9 +133,9 @@ button {
   display: block;
   margin: auto;
 }
-
 hr {
   margin: 5px 0px 0px 0px;
+  border-radius: 15px;
 }
 h5 {
   margin: 0px;
@@ -137,12 +147,11 @@ p {
   margin: 0px;
   margin-bottom: 10px;
 }
-
 .SideBarLayout {
   display: grid;
-  grid-template-columns: 150px 4fr;
+  grid-template-columns: 180px 4fr;
+  gap: 5px;
 }
-
 .flexLayout {
   display: flex;
   flex-direction: column;
@@ -150,150 +159,143 @@ p {
   /* flex-wrap: wrap; */
   height: 75vh;
   overflow-y: scroll;
-  -ms-overflow-style: none;  /* Internet Explorer 10+ */
-    scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
 }
-
 .flexLayout::-webkit-scrollbar {
-  display: none;  /* Safari and Chrome */
+  display: none; /* Safari and Chrome */
 }
 .GRAPHDashboardContainer {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   flex-wrap: wrap;
-
-  /* border: #050505 solid 5px; */
-  height: 65vh;
-  overflow-y: auto;
+  border-radius: 15px;
+  margin: 10px;
+  border: #9747ff solid 2px;
+  height: 60vh;
+  overflow-y: scroll;
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
 }
-.DashboardFlex{
+.GRAPHDashboardContainer::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+.DashboardFlex {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  gap: 10px;
   flex-wrap: wrap;
   align-items: center;
 }
 .NavBarContainer {
-  /* position: absolute; */
-  /* top: 0px; */
-  /* width: calc(30px+20vw); */
-  /* flex-direction: column; */
   height: 100vh;
   margin-right: 10px;
-}
-.navBarHeader {
   width: 100%;
-  /* position: sticky; */
-  height: 100vh;
   background-color: #9747ff91;
   display: flex;
   flex-direction: column;
-  margin: 0;
   justify-content: start;
-  padding: 0px 10px 0px 0px;
+  padding: 0px 0px 0px 0px;
   backdrop-filter: blur(20px);
+  border-radius: 0px 15px 15px 0px;
 }
-.navBarHeader h2 {
+.NavBarContainer h2 {
   color: white;
   margin: 5px 0px 5px 5px;
 }
-.navBarHeader span {
+.NavBarContainer span {
   color: black;
 }
-
+.homeLogo{
+  border-radius: 0px 0px 15px 15px;
+  border-bottom: white solid 2px;
+}
 .navBarList {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   /* align-items: center; */
 }
-
 .NavLoginLogoutButtonContainer {
   top: 80vh;
   position: absolute;
+  
 }
-
 .NavLoginLogoutButton {
   background-color: #9747ff;
   padding: 5px 5px 5px 5px;
   border-radius: 10px;
   width: 70px;
-  top: 50%;
+  /* top: 50%; */
   border: none;
-  /* display: block; */
-  /* margin: auto; */
   color: white;
   cursor: pointer;
-}
-/* .navBarList li {
-  margin: 0px 0px 0px 10px;
-  font-weight: 450;
-} */
-.HeroesTitle {
-  margin: 3px 3px;
-  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .Selected {
   color: white;
   margin: 5px 10px 5px 10px;
-
-  font-weight: bold;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 .unSelected {
-  color: black;
+  color: grey;
   margin: 5px 10px 5px 10px;
-  /* font-weight: bold; */
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
-ul {
-  list-style-type: none;
-  padding: 0px;
+.cardItemTitle {
+  margin: 3px 3px;
+  width: 90%;
 }
-
-.HeroesTitle {
+.cardItemTitle {
   text-align: center;
 }
-.Heroes {
+.cardItem {
   display: flex;
   place-items: center;
   gap: 5px;
   flex-direction: row;
   padding: 10px;
-  width: 70vw;
+  width: 80vw;
   height: 60px;
   margin: 0px 7px 2px 7px;
   border-radius: 10px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   justify-content: space-evenly;
 }
-
-.HeroesListTitle {
+.cardItemListTitle {
   display: flex;
   place-items: center;
   gap: 5px;
   flex-direction: row;
   padding: 10px;
-  width: 70vw;
+  width: 80vw;
   height: 30px;
   margin: 5px auto;
   border-radius: 10px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 1px 0px;
   justify-content: space-evenly;
 }
-
-.Heroes:hover {
-  background-color: #dfd5eb;
+.cardItem:hover {
+  background-color: #ebe8f0;
   /* width: 175px;
   height: 190px; */
 }
-.Heroes img {
+.cardItem img {
   width: 69px;
   height: 69px;
   border-radius: 10px;
 }
-
-.HeroesDetails {
+.cardItemDetails {
   display: flex;
   flex: 3;
   justify-content: space-evenly;
@@ -317,42 +319,8 @@ ul {
   height: 100px;
   border-radius: 50px;
 }
-
 #volunteerPoint {
   width: 20px;
-}
-
-.Partners {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 10px;
-  width: 150px;
-  height: 177px;
-}
-.Partners img {
-  width: 150px;
-  height: 150px;
-  border-radius: 10px;
-}
-
-.Developers {
-  color: white;
-  background-color: #9747ff;
-}
-.Developers h4 {
-  padding-top: 5px;
-  text-align: center;
-  margin: 0px;
-}
-
-.DevelopersContainer {
-  display: flex;
-  align-items: center;
-}
-.DevelopersInfo {
-  display: flex;
-  flex-direction: column;
-  padding-left: 10px;
 }
 
 .Dashboard {
@@ -360,25 +328,23 @@ ul {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
+  margin-bottom: 20px;
+  margin-top: 20px;
 }
-
 .DashboardMini {
-  /* min-width: 50px; */
-  width: 100px;
-  /* display: block; */
+  max-width: 160px;
+  min-width: 140px;
   text-align: center;
   border-radius: 15px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-
-  height: 120px;
-  /* border: #050505 solid 5px; */
+  height: 150px;
   padding: 0px 10px;
   margin: 10px;
 }
-
 .C1 {
-  background-color: #f5c109;
+  background-color: #9747ff;
   height: 7px;
+  border-radius: 15px;
 }
 
 .LoginForm {
@@ -386,13 +352,11 @@ ul {
   margin: auto;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   padding: 20px;
-  margin-top: 100px;
   backdrop-filter: blur(20px);
   border-radius: 10px;
   width: 50vw;
   place-items: center;
 }
-
 .LogInButton {
   display: block;
   margin-top: 10px;
@@ -407,19 +371,16 @@ ul {
   width: 50vw;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   padding: 20px;
-  margin-top: 100px;
   backdrop-filter: blur(20px);
   border-radius: 10px;
   place-items: center;
 }
-
 .SignUpFormInput {
   display: grid;
   flex-direction: column;
   grid-template-columns: 1fr 1fr;
   place-items: center;
 }
-
 .SignUpButton {
   display: block;
   margin: auto;
@@ -448,6 +409,7 @@ ul {
   margin-bottom: 10px;
   align-items: center;
 }
+
 .ProfileImageDivContainer {
   display: block;
   margin: auto;
@@ -470,7 +432,6 @@ ul {
   height: 100%;
   object-fit: fill;
 }
-
 .DonorBookButton {
   float: right;
   margin: 10px;
@@ -486,8 +447,8 @@ ul {
 }
 
 .RequestSearch {
-  margin: 10px 10px;
-
+  margin: 5px auto;
+  width: 80vw;
   display: flex;
   justify-content: space-between;
   justify-items: baseline;
@@ -502,7 +463,7 @@ ul {
   height: 48px;
 }
 .RequestSearchOne input {
-  width: 30vw;
+  width: 20vw;
 }
 
 .dropdown-container {
@@ -512,7 +473,6 @@ ul {
   border-radius: 10px;
   margin: 5px 0px 5px 0px;
 }
-
 .dropdown-input {
   padding: 5px;
   display: flex;
@@ -538,7 +498,6 @@ ul {
   background-color: #0d6efd;
   color: #fff;
 }
-
 .dropdown-item:hover {
   background-color: #9747ff;
 }
@@ -550,7 +509,6 @@ ul {
   border-radius: 10px;
   margin: 5px 0px 5px 0px;
 }
-
 .Filter-input {
   padding: 5px;
   display: flex;
@@ -576,7 +534,6 @@ ul {
   background-color: #0d6efd;
   color: #fff;
 }
-
 .Filter-item:hover {
   background-color: #9747ff;
 }
@@ -616,9 +573,12 @@ ul {
   }
 
   .RequestSearch {
+    max-width: 80vw;
     display: flex;
     flex-direction: column;
     align-items: stretch;
+    margin: 5px auto;
+
   }
   .Filter-container {
     display: flex;
@@ -632,6 +592,27 @@ ul {
     margin-bottom: 10px;
     align-items: center;
   }
+  .GRAPHDashboardContainer {
+    
+    height: 50vh;
+   
+  }
+  .Dashboard {
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+  .DashboardMini{
+    width: 40px;
+    text-align: center;
+    border-radius: 15px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    height: 80px;
+    padding: 5px 4px;
+    margin: 5px;
+  }
+  h3{
+    margin: 3px;
+  }
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
@@ -640,6 +621,7 @@ ul {
     display: flex;
     flex-direction: column;
     align-items: stretch;
+    margin: 5px auto;
   }
   .Filter-container {
     display: flex;
@@ -676,7 +658,6 @@ ul {
     margin: auto;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     padding: 20px;
-    margin-top: 100px;
     backdrop-filter: blur(20px);
     border-radius: 10px;
     width: 40vw;
@@ -688,7 +669,6 @@ ul {
     width: 40vw;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     padding: 20px;
-    margin-top: 100px;
     backdrop-filter: blur(20px);
     border-radius: 10px;
     place-items: center;

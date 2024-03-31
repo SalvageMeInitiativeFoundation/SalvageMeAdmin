@@ -9,12 +9,12 @@ function Heroes({ user, PromotionAccepted, PromotionRejected }) {
   
 
   return (
-    <div className="Heroes">
+    <div className="cardItem">
       <img src={user.image} alt="Heroe's image" />
       <p style={{ textAlign: "left",flex:'2' }}>{user.email}</p>
       <p style={{ textAlign: "left",width:"100px"  }}>{user.accountType}</p>
 
-      <div className="HeroesDetails">
+      <div className="cardItemDetails">
         <button
           className={
             user.accountType != "org"

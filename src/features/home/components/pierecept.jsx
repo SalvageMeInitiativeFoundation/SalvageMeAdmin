@@ -39,11 +39,13 @@ function Pierecept({data}) {
 
 
     return (
-      <div style={{width:"400px",height:"40vh",padding:"5px"}}>
+      <div style={{width:"400px",height:"45vh",padding:"5px"}}>
+      <h5 className="cardItemTitle">Acceptance Analytics</h5>
 
       <ResponsivePie
+        enableArcLinkLabels={false}
         data={graphData}
-        margin={{ top: 40, right: 20, bottom: 20, left: 10 }}
+        margin={{ top: 4, right: 4, bottom: 4, left: 4 }}
         innerRadius={0.5}
         padAngle={0.7}
         cornerRadius={3}

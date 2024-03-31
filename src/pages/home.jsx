@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Heroes from "../features/Promote2Org/components/heroes";
-import Partners from "../components/partners";
 import Volunteers from "../features/Promote2Volunteer/components/volunteers";
 import axios from "axios";
 import Spinner from "../shared/spinner";
@@ -102,7 +101,7 @@ function Home() {
             <p>Social Science</p>
           </div>
         </div>
-        <h4 className="HeroesTitle">Growth graph totally donated</h4>
+        <h4 className="cardItemTitle">SalvageMe Analytics</h4>
         <div className="GRAPHDashboardContainer">
           {isLoading ? (
             <Spinner></Spinner>

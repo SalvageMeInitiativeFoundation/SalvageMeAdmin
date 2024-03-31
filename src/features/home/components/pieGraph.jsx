@@ -71,11 +71,11 @@ const Pie = ({data}) => {
 
 
     return (
-      <div style={{width:"400px",height:"40vh",padding:"20px"}}>
-
+      <div style={{width:"400px",height:"45vh",padding:"20px"}}>
+      <h5 className="cardItemTitle">Materials Analytics</h5>
       <ResponsivePie
         data={graphData}
-        margin={{ top: 40, right: 20, bottom: 20, left: 40 }}
+        margin={{ top: 4, right: 4, bottom: 4, left: 4 }}
         innerRadius={0.5}
         padAngle={0.7}
         cornerRadius={3}
@@ -88,6 +88,22 @@ const Pie = ({data}) => {
         arcLinkLabelsColor={{ from: "color" }}
         arcLabelsSkipAngle={10}
         arcLabelsTextColor={{ from: "color", modifiers: [["darker", 2]] }}
+        enableArcLinkLabels={false}
+        // legends={[
+        //     {
+        //         anchor: 'top-left',
+        //         direction: 'row',
+        //         justify: false,
+        //         translateX: 0,
+        //         translateY: 0,
+        //         itemWidth: 100,
+        //         itemHeight: 20,
+        //         itemsSpacing: 0,
+        //         symbolSize: 20,
+        //         itemDirection: 'left-to-right'
+        //     },
+           
+        // ]}
       />
       </div>
     );

@@ -127,12 +127,12 @@ const PromoteUsertoVolunteer = () => {
           </button>
         </div>
       </div>
-      <h3 className="HeroesTitle">Promote user to volunteer</h3>
-      <div className="HeroesListTitle">
+      <h3 className="cardItemTitle">Promote user to volunteer</h3>
+      <div className="cardItemListTitle">
         <p style={{ width: "69px" }}>Image</p>
         <p style={{ textAlign: "left", flex: "2" }}>User</p>
         <p style={{ textAlign: "left", width:"100px" }}>Role</p>
-        <div className="HeroesDetails">
+        <div className="cardItemDetails">
           <p>Action</p>
         </div>
       </div>

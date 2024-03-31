@@ -6,7 +6,7 @@ function DonorBook({ donation, user, DonationAccepted, DonationRejected }) {
   const message = "Hello, Thanks Donating a book to.......................... ";
 
   return (
-    <div className="Heroes">
+    <div className="cardItem">
       <img
         src={donation.image}
         alt="Heroe's image"
@@ -23,7 +23,7 @@ function DonorBook({ donation, user, DonationAccepted, DonationRejected }) {
         {Date(donation.updatedAt).split("G")[0]}
       </p>
 
-      <div className="HeroesDetails">
+      <div className="cardItemDetails">
         <button
           className="PromoButtonPrimary "
           type="button"
@@ -37,7 +37,7 @@ function DonorBook({ donation, user, DonationAccepted, DonationRejected }) {
           rel="noopener noreferrer"
         >
           <button
-            className="PromoButtonTertiary"
+            className="MailButton"
             type="button"
             onClick={(e) => console.log("mail sent")}
           >

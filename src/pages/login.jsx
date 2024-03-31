@@ -7,6 +7,7 @@ import {UserContext} from "../context/userContext/userContext";
 function Login(){
     const {setLocalUser,getLocalUser,setUser,user}=useContext(UserContext)
     const [isLoading,setIsLoading]=useState(false);
+    const [error,setError] = useState(false);
     const [loginData,setLoginData]=useState({email:"",password:""})
     const navigate=useNavigate()
     const handleChange=(e)=>{
@@ -17,22 +18,28 @@ function Login(){
 
     const LoginUser=async(e)=>{
         e.preventDefault();
-        console.log('loggiiiiiiiiiiiiiiiiiiiiiiiiiiiiiin')
+        // console.log('loggiiiiiiiiiiiiiiiiiiiiiiiiiiiiiin')
         try {
            const loginResponse= await axios.post(`${process.env.REACT_APP_BASE_URL}/auth/loginUser`,loginData) ;
            console.log(loginResponse.data)
            if(loginResponse.status==200){
 
             setLocalUser(loginResponse.data);
-            console.log('==============================')
-            console.log(user)
+            // console.log('==============================')
+            // console.log(user)
         
             // TODO:Write implementaion to store value in local storage
             navigate('/');
 
            }
+           else{
+            setError(true);
+            setTimeout(3000,()=>setError(false))
+           }
         } catch (error) {
             console.log(error);
+            setError(true);
+            setTimeout(3000,()=>setError(false))
         }
     }
     const {email,password}=loginData;
@@ -41,6 +48,7 @@ function Login(){
        
         <div className="LoginForm">  
         <h3 style={{textAlign:"center"}}>Welcome Back</h3>
+        {error&& <p>Incorrect Username or Passowrd</p>}
         <form onSubmit={LoginUser}>
         <div>
         <label htmlFor="Email">Email</label><br></br>
@@ -52,7 +60,7 @@ function Login(){
         </div>
         <p style={{textAlign:"right",color:"#9747ff",cursor:"pointer"}}>Forgot password?</p>
         <button  className="LogInButton" type="submit">Login</button>
-        <p  style={{textAlign:"center"}}>Already have an account?<Link to='/signUp'>SignUp</Link></p>
+        <p  style={{textAlign:"center"}}>Don't have an account?<Link to='/signUp' style={{color:'#9747ff'}}>SignUp</Link></p>
         </form>
         </div>
 

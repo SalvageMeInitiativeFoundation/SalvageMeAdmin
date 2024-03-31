@@ -8,7 +8,7 @@ function ApproveDonorBook({ donation, ApprovalRejected, ApprovalAccepted }) {
     "Hello %0D  We have approved your request for ............................. ";
 
   return (
-    <div className="Heroes">
+    <div className="cardItem">
       <img src={donation.image} alt="Heroe's image" />
       <p style={{ textAlign: "left", flex: "2" }}>{donation.title}</p>
       <p style={{ textAlign: "left", width: "200px" }}>
@@ -19,7 +19,7 @@ function ApproveDonorBook({ donation, ApprovalRejected, ApprovalAccepted }) {
       <p style={{ textAlign: "left", flex: "1" }}>
         {Date(donation.updatedAt).split("G")[0]}
       </p>
-      <div className="HeroesDetails">
+      <div className="cardItemDetails">
         <button
           className="PromoButtonPrimary"
           type="button"
@@ -33,7 +33,7 @@ function ApproveDonorBook({ donation, ApprovalRejected, ApprovalAccepted }) {
           rel="noopener noreferrer"
         >
           <button
-            className="PromoButtonTertiary"
+            className="MailButton"
             type="button"
             onClick={(e) => console.log("mail sent")}
           >
