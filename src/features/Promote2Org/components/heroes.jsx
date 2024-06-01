@@ -16,6 +16,7 @@ function Heroes({ user, PromotionAccepted, PromotionRejected }) {
 
       <div className="cardItemDetails">
         <button
+        disabled={user.status != "active"}
           className={
             user.accountType != "org"
               ? "PromoButtonPrimary"

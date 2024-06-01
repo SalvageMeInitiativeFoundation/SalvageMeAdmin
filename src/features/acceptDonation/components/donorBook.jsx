@@ -14,7 +14,7 @@ function DonorBook({ donation, user, DonationAccepted, DonationRejected }) {
         style={{ width: "69px" }}
       />
       <p style={{ textAlign: "left", flex: "2" }}>{donation.title}</p>
-      <p style={{ textAlign: "left", width: "200px" }}>
+      <p className="staticColumnHead">
         {donation.donor.length > 20
           ? donation.donor.slice(0, 20).concat("...")
           : donation.donor}

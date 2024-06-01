@@ -158,7 +158,7 @@ function ApproveDonation() {
       <div className="cardItemListTitle">
         <p style={{ width: "69px" }}>Image</p>
         <p style={{ textAlign: "left", flex: "2" }}>Title</p>
-        <p style={{ textAlign: "left", width: "200px" }}>Receiver</p>
+        <p className="staticColumnHead" >Receiver</p>
         <p style={{ textAlign: "left", flex: "1" }}>Date</p>
         <div className="cardItemDetails">
           <p>Action</p>

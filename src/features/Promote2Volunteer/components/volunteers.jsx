@@ -10,7 +10,9 @@ function Volunteers({ user,PromotionAccepted, PromotionRejected }) {
       <p style={{ textAlign: "left",width:"100px" }}>{user.accountType}</p>
 
       <div className="cardItemDetails">
-        <button className={user.accountType!='volunteer'?"PromoButtonPrimary":"PromoButtonSecondary"} type="button" onClick={(e)=>PromotionAccepted(user._id,e)} >
+        <button
+        disabled={user.status == "active"}
+         className={user.accountType!='volunteer'?"PromoButtonPrimary":"PromoButtonSecondary"} type="button" onClick={(e)=>PromotionAccepted(user._id,e)} >
         {user.accountType=='volunteer'?"Volunteered":"Volunteer"}
          
         </button>
