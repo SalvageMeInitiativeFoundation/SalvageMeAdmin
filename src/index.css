@@ -10,6 +10,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+input{
+  border: 2px solid rgb(226, 226, 226);
+
+}
 input[type="text"] {
   border-radius: 10px;
   width: 100%;
@@ -74,7 +78,7 @@ button {
   cursor: pointer;
 }
 .PromoButtonSecondary {
-  background-color: greenyellow;
+  background-color: rgb(21, 243, 58);
   padding: 15px 20px;
   border-radius: 10px;
   width: fit-content;
@@ -91,10 +95,13 @@ button {
   padding: 15px 20px;
   border-radius: 10px;
   width: fit-content;
-  border: red solid 1px;
+  /* border: red solid 1px; */
   color: red;
   cursor: pointer;
   margin: 2px 2px;
+}
+.PromoButtonTertiary:hover {
+  background-color: rgb(250, 220, 220); 
 }
 .MailButton{
   background-color: transparent;
@@ -102,6 +109,7 @@ button {
   border-radius: 10px;
   width: fit-content;
   border: green solid 1px;
+  background-color: rgb(179, 255, 179);
   color: green;
   cursor: pointer;
   margin: 2px 2px;
@@ -307,7 +315,7 @@ p {
   padding: 10px;
   width:93vw ;
   height: fit-content;
-  margin: 0px 7px 2px 7px;
+  margin: 0px 10px 2px 10px;
   border-radius: 10px;
   box-shadow: rgba(226, 226, 226, 0.2) 0px 2px 4px 0px;
   justify-content: space-evenly;
@@ -350,6 +358,10 @@ p {
   flex: 1;
   text-overflow: ellipsis;
   overflow: hidden;
+}
+.staticColumnHeadTwo{
+  text-align: left;
+  flex: 1;
 }
 
 .Volunteers {
@@ -569,13 +581,14 @@ p {
 
 .Filter-container {
   text-align: left;
-  border: 2px solid black;
+  border: 2px solid rgb(226, 226, 226);
   position: relative;
   border-radius: 10px;
   margin: 5px 0px 5px 0px;
 }
 .Filter-input {
-  padding: 5px;
+  padding:0px 5px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -658,6 +671,10 @@ p {
   .RequestSearch {
     flex-direction: column;
     align-items: stretch;
+    margin-left: 10px;
+  }
+  .RequestSearchOne input {
+    width: 30vw;
   }
   .Filter-container {
     display: flex;
@@ -680,7 +697,7 @@ p {
     width: 40px;
     text-align: center;
     border-radius: 15px;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    box-shadow: rgba(226, 226, 226, 0.2) 0px 2px 8px 0px;
     height: 80px;
     padding: 5px 4px;
     margin: 5px;
@@ -700,12 +717,12 @@ p {
     gap: 5px;
     flex-direction: column;
     padding: 10px;
-    width:93vw ;
+    width:89vw ;
     height: fit-content;
-    margin: 5px 7px 5px 7px;
+    margin:7px 10px ;
     border-radius: 10px;
-    box-shadow: rgba(153, 152, 152, 0.2) 0px 2px 4px 0px;
     justify-content: space-evenly;
+    border: #f0efef solid 1px;
   }
 }
 
@@ -823,7 +840,6 @@ p {
     height: 60px;
     margin: 0px 7px 2px 7px;
     border-radius: 10px;
-    box-shadow: rgba(153, 152, 152, 0.2) 0px 2px 4px 0px;
     justify-content: space-evenly;
   }
   .cardItemListTitle {
@@ -879,7 +895,10 @@ p {
   .Dashboard {
     margin-top: 20px;
   }
-  
+  .staticColumnHeadTwo{
+    text-align: left;
+    width:100px;
+  }
 }
 
 
