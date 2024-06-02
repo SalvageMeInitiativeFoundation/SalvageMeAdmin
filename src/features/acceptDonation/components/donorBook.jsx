@@ -15,9 +15,9 @@ function DonorBook({ donation, user, DonationAccepted, DonationRejected }) {
       />
       <p style={{ textAlign: "left", flex: "2" }}>{donation.title}</p>
       <p className="staticColumnHead">
-        {donation.donor.length > 20
-          ? donation.donor.slice(0, 20).concat("...")
-          : donation.donor}
+        {
+           donation.donor
+          }
       </p>
       <p style={{ textAlign: "left", flex: "1" }}>
         {Date(donation.updatedAt).split("G")[0]}

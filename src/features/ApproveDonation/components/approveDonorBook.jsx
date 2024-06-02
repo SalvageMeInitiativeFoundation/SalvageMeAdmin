@@ -12,9 +12,7 @@ function ApproveDonorBook({ donation, ApprovalRejected, ApprovalAccepted }) {
       <img src={donation.image} alt="Heroe's image" />
       <p style={{ textAlign: "left", flex: "2" }}>{donation.title}</p>
       <p className="staticColumnHead">
-        {donation.currentReciever.length > 20
-          ? donation.currentReciever.slice(0, 20).concat("...")
-          : donation.currentReciever}
+        { donation.currentReciever}
       </p>
       <p style={{ textAlign: "left", flex: "1" }}>
         {Date(donation.updatedAt).split("G")[0]}
