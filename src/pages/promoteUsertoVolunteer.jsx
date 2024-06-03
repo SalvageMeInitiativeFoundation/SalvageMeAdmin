@@ -131,7 +131,7 @@ const PromoteUsertoVolunteer = () => {
       <div className="cardItemListTitle">
         <p style={{ width: "69px" }}>Image</p>
         <p style={{ textAlign: "left", flex: "2" }}>User</p>
-        <p style={{ textAlign: "left", width:"100px" }}>Role</p>
+        <p className="staticColumnHeadTwo">Role</p>
         <div className="cardItemDetails">
           <p>Action</p>
         </div>

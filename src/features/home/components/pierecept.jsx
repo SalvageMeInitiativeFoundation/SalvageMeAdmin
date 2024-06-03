@@ -39,7 +39,7 @@ function Pierecept({data}) {
 
 
     return (
-      <div style={{width:"400px",height:"45vh",padding:"5px"}}>
+      <div className='pieContainer' >
       <h5 className="cardItemTitle">Acceptance Analytics</h5>
 
       <ResponsivePie

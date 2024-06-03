@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState, useContext } from "react";
 import { Link,useNavigate } from "react-router-dom";
 import {UserContext} from "../context/userContext/userContext";
+import AuthBackDrop from "../components/authbackdrop";
 
 
 function Login(){
@@ -18,6 +19,7 @@ function Login(){
 
     const LoginUser=async(e)=>{
         e.preventDefault();
+        setIsLoading(true)
         // console.log('loggiiiiiiiiiiiiiiiiiiiiiiiiiiiiiin')
         try {
            const loginResponse= await axios.post(`${process.env.REACT_APP_BASE_URL}/auth/loginUser`,loginData) ;
@@ -34,21 +36,23 @@ function Login(){
            }
            else{
             setError(true);
-            setTimeout(3000,()=>setError(false))
+            // setTimeout(3000,()=>setError(false))
            }
         } catch (error) {
             console.log(error);
             setError(true);
-            setTimeout(3000,()=>setError(false))
+        }finally{
+                      setTimeout(3000,()=>setError(false))
+                      setIsLoading(false)
+  
         }
     }
     const {email,password}=loginData;
     return (<>
         
-       
-        <div className="LoginForm">  
+       <AuthBackDrop><div className="LoginForm">  
         <h3 style={{textAlign:"center"}}>Welcome Back</h3>
-        {error&& <p>Incorrect Username or Passowrd</p>}
+        {error&& <p style={{color:"red"}}>Incorrect Username or Passowrd</p>}
         <form onSubmit={LoginUser}>
         <div>
         <label htmlFor="Email">Email</label><br></br>
@@ -59,10 +63,11 @@ function Login(){
         <input type="password" name="Password" id="password" placeholder="Enter your password" required={true} value={password} onChange={handleChange}/><br></br>
         </div>
         <p style={{textAlign:"right",color:"#9747ff",cursor:"pointer"}}>Forgot password?</p>
-        <button  className="LogInButton" type="submit">Login</button>
+        <button  className="LogInButton" type="submit">{`${isLoading?'Logging in': 'Login'}`}</button>
         <p  style={{textAlign:"center"}}>Don't have an account?<Link to='/signUp' style={{color:'#9747ff'}}>SignUp</Link></p>
         </form>
-        </div>
+        </div></AuthBackDrop>
+        
 
         
     </>)

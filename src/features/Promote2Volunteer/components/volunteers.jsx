@@ -6,11 +6,13 @@ function Volunteers({ user,PromotionAccepted, PromotionRejected }) {
   return (
     <div className="cardItem">
       <img src={user.image} alt="Heroe's image" />
-      <p style={{ textAlign: "left",flex:'2' }}>{user.email}</p>
-      <p style={{ textAlign: "left",width:"100px" }}>{user.accountType}</p>
+      <p style={{ textAlign: "left",flex:'2',textOverflow:"ellipsis",overflow:"hidden" }}>{user.email}</p>
+      <p className="staticColumnHeadTwo" >{user.accountType}</p>
 
       <div className="cardItemDetails">
-        <button className={user.accountType!='volunteer'?"PromoButtonPrimary":"PromoButtonSecondary"} type="button" onClick={(e)=>PromotionAccepted(user._id,e)} >
+        <button
+        disabled={user.status == "active"}
+         className={user.accountType!='volunteer'?"PromoButtonPrimary":"PromoButtonSecondary"} type="button" onClick={(e)=>PromotionAccepted(user._id,e)} >
         {user.accountType=='volunteer'?"Volunteered":"Volunteer"}
          
         </button>

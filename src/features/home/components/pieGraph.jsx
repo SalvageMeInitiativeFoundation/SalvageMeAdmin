@@ -71,7 +71,7 @@ const Pie = ({data}) => {
 
 
     return (
-      <div style={{width:"400px",height:"45vh",padding:"20px"}}>
+      <div className='pieContainer' >
       <h5 className="cardItemTitle">Materials Analytics</h5>
       <ResponsivePie
         data={graphData}
