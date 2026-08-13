@@ -119,7 +119,7 @@ function AcceptDonation() {
 
   return (
     <div>
-      <h3 className="cardItemTitle">Accept Donation</h3>
+      <h3 className="cardItemTitle">Accept BookDonation</h3>
       <div className="RequestSearch">
         <div>
           <Filter

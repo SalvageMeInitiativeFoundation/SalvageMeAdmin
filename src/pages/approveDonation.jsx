@@ -95,7 +95,7 @@ function ApproveDonation() {
 
   return (
     <div>
-      <h3 className="cardItemTitle">Approve Users Request</h3>
+      <h3 className="cardItemTitle">Approve Book Request</h3>
       <div className="RequestSearch">
         <div className="RequestSearchOne">
           <input

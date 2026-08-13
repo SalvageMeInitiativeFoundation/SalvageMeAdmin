@@ -120,7 +120,7 @@ const PromoteUsertoVolunteer = () => {
 
   return (
     <div>
-      <h3 className="cardItemTitle">Promote user Account</h3>
+      <h3 className="cardItemTitle">Promote Users Account</h3>
       <div className="RequestSearch">
         <div className="RequestSearchOne">
           <input

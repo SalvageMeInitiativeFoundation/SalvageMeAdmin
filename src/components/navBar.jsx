@@ -29,7 +29,7 @@ function NavBar() {
   const navItems = [
     { to: "/acceptDonation", label: "Accept Donation", Icon: FaBook },
     { to: "/approveDonation", label: "Approve Order", Icon: RiUserReceivedFill },
-    { to: "/promoteUsertoVolunteer", label: "Promote To User", Icon: MdVolunteerActivism },
+    { to: "/promoteUsertoVolunteer", label: "Promote User", Icon: MdVolunteerActivism },
   ];
 
   return (
