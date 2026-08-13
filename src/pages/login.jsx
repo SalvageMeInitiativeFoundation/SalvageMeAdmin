@@ -1,8 +1,9 @@
 import axios from "axios";
 import React, { useState, useContext } from "react";
-import { Link,useNavigate } from "react-router-dom";
-import {UserContext} from "../context/userContext/userContext";
+import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../context/userContext/userContext";
 import AuthBackDrop from "../components/authbackdrop";
+import { toast } from "react-toastify";
 
 
 function Login(){
@@ -52,19 +53,19 @@ function Login(){
         
        <AuthBackDrop><div className="LoginForm">  
         <h3 style={{textAlign:"center"}}>Welcome Back</h3>
-        {error&& <p style={{color:"red"}}>Incorrect Username or Passowrd</p>}
+        {error&& <p style={{color:"red"}}>Incorrect Email or Passowrd</p>}
         <form onSubmit={LoginUser}>
         <div>
         <label htmlFor="Email">Email</label><br></br>
-        <input type="email" name="Email" id="email" placeholder="Enter email address or username" required={true} value={email} onChange={handleChange}/>
+        <input type="email" name="Email" id="email" placeholder="Enter email address" required={true} value={email} onChange={handleChange}/>
         </div><br></br>
         <div>
         <label htmlFor="Password">Password</label><br></br>
         <input type="password" name="Password" id="password" placeholder="Enter your password" required={true} value={password} onChange={handleChange}/><br></br>
         </div>
-        <p style={{textAlign:"right",color:"#9747ff",cursor:"pointer"}}>Forgot password?</p>
-        <button  className="LogInButton" type="submit">{`${isLoading?'Logging in': 'Login'}`}</button>
-        <p  style={{textAlign:"center"}}>Don't have an account?<Link to='/signUp' style={{color:'#9747ff'}}>SignUp</Link></p>
+        <p style={{textAlign:"right",color:"#fd7e14",cursor:"pointer"}} onClick={(e)=>{e.preventDefault(); const portal = process.env.REACT_APP_CLIENT_PORTAL; toast.info(`Reset passwords and signups are handled on the client portal.`, { position: 'top-right', autoClose: 8000 }); if(portal) window.open(portal, '_blank');}}>Forgot password?</p>
+        <button  className="LogInButton" type="submit">{`${isLoading?'Logging in...': 'Login'}`}</button>
+        <p  style={{textAlign:"center", margin:"15px 0"}}>Don't have an account?<a href="#" onClick={(e)=>{e.preventDefault(); const portal = process.env.REACT_APP_CLIENT_PORTAL; toast.info(`Please sign up via the client portal`, { position: 'top-right', autoClose: 8000 }); if(portal) window.open(portal, '_blank');}} style={{color:'#fd7e14'}}>SignUp</a></p>
         </form>
         </div></AuthBackDrop>
         

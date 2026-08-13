@@ -6,62 +6,62 @@ const Pie = ({data}) => {
         {
           id: "Language",
           label: "Language",
-          value: data.filter((d)=>d.category=='Language').length,
+          value: data.filter((d)=>d.category.toLowerCase()=='language').length,
           color: "hsl(90, 70%, 50%)"
         },
         {
           id: "Religion",
           label: "Religion",
-          value: data.filter((d)=>d.category=='Religion').length,
+          value: data.filter((d)=>d.category.toLowerCase()=='religion').length,
           color: "hsl(56, 70%, 50%)"
         },
         {
           id: "Social Science",
           label: "Social Science",
-          value: data.filter((d)=>d.category=='Social Science').length,
+          value: data.filter((d)=>d.category.toLowerCase()=='social science').length,
           color: "hsl(103, 70%, 50%)"
         },
         {
           id: "Ap. Science & Technology",
           label: "Ap. Science & Technology",
-          value: data.filter((d)=>d.category=='Ap. Science & Technology').length,
+          value: data.filter((d)=>d.category.toLowerCase()=='ap. science & technology').length,
           color: "hsl(186, 70%, 50%)"
         },
         {
           id: "Art Recreation",
           label: "Art Recreation",
-          value: data.filter((d)=>d.category=='Art Recreation').length,
+          value: data.filter((d)=>d.category.toLowerCase()=='art recreation').length,
           color: "hsl(104, 70%, 50%)"
         },
         {
           id: "Science & Math",
           label: "Science & Math",
-          value: data.filter((d)=>d.category=='Science & Math').length,
+          value: data.filter((d)=>d.category.toLowerCase()=='science & math').length,
           color: "hsl(109, 70%, 50%)"
         },
         
         {
           id: "Generalities",
           label: "Generalities",
-          value: data.filter((d)=>d.category=='Generalities').length,
+          value: data.filter((d)=>d.category.toLowerCase()=='generalities').length,
           color: "hsl(79, 70%, 50%)"
         },
         {
           id: "Literature",
           label: "Literature",
-          value: data.filter((d)=>d.category=='Literature').length,
+          value: data.filter((d)=>d.category.toLowerCase()=='literature').length,
           color: "hsl(80, 70%, 50%)"
         },
         {
           id: "Geography & History",
           label: "Geography & History",
-          value: data.filter((d)=>d.category=='Geography & History').length,
+          value: data.filter((d)=>d.category.toLowerCase()=='geography & history').length,
           color: "hsl(60, 70%, 50%)"
         },
         {
           id: "Philosophy & Psychology",
           label: "Philosophy & Psychology",
-          value: data.filter((d)=>d.category=='Philosophy & Psychology').length,
+          value: data.filter((d)=>d.category.toLowerCase()=='philosophy & psychology').length,
           color: "hsl(20, 70%, 50%)"
         }
        

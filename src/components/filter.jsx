@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { IoIosFunnel } from "react-icons/io";
-import axios from "axios";
 
 
-
-const Filter = ({ placeHolder,options,setDonations,setIsLoading}) => {
+const Filter = ({ placeHolder, options, setDonations, items = [] }) => {
     const [showMenu,setShowMenu]=useState(false);
     const [selectedValue, setSelectedValue] = useState(null);
     
@@ -29,7 +27,21 @@ const Filter = ({ placeHolder,options,setDonations,setIsLoading}) => {
 
     const onItemClick = (option)=>{
         setSelectedValue(option);
-        FetchDataByCategory(option.label);
+        // filter locally from provided items by status
+        if(!items || items.length < 1){
+          setDonations([]);
+          return;
+        }
+        const val = (option.value || option.label || "").toString().toLowerCase();
+        if(val === "all" || val.includes("all")){
+          setDonations(items);
+          return;
+        }
+        const filtered = items.filter((it) => {
+          const status = (it.status || "").toString().toLowerCase();
+          return status === val;
+        });
+        setDonations(filtered);
     }
 
     const isSelected = (option)=>{
@@ -39,22 +51,7 @@ const Filter = ({ placeHolder,options,setDonations,setIsLoading}) => {
         return selectedValue.value===option.value;
     }
 
-    const FetchDataByCategory=async(category)=>{
-      // setIsLoading((prev)=>!prev)
-      try {
-        const BookData = await axios.get(
-          `${process.env.BASE_URL}/donation/category/${category}`       
-        );
-        console.log(BookData.data)
-        setDonations(BookData.data);
-        // setIsLoading((prev)=>!prev)
-      } catch (error) {
-        console.error(error)
-        // setIsLoading((prev)=>!prev)
-      }
-  
-    }
-
+    
   
     return (
       <div className="Filter-container">

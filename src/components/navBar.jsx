@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, NavLink, Link } from "react-router-dom";
 import "../index.css";
 import { UserContext } from "../context/userContext/userContext";
 import salvageMeLogo from "../assets/SalvageMeLogo.png";
@@ -26,11 +26,11 @@ function NavBar() {
 
   const location = useLocation();
 
-  const pathName = (route) => {
-    if (route == location.pathname) {
-      return true;
-    }
-  };
+  const navItems = [
+    { to: "/acceptDonation", label: "Accept Donation", Icon: FaBook },
+    { to: "/approveDonation", label: "Approve Order", Icon: RiUserReceivedFill },
+    { to: "/promoteUsertoVolunteer", label: "Promote To User", Icon: MdVolunteerActivism },
+  ];
 
   return (
     <>
@@ -40,111 +40,70 @@ function NavBar() {
         </Link>
 
         {user.length > 0 && (
-          <ul className="navBarList">
-            <Link to="/acceptDonation">
-              {pathName("/acceptDonation") ? (
-                <div className="Selected">
-                  <li>
-                    <FaBook size={16} /> Accept Donation
-                  </li>
-                  <hr color="white"></hr>
-                </div>
-              ) : (
-                <li className="unSelected">
-                  <FaBook size={16} /> Accept Donation
+          <nav aria-label="Main navigation">
+            <ul className="navBarList">
+              {navItems.map(({ to, label, Icon }) => (
+                <li key={to}>
+                  <NavLink
+                    to={to}
+                    className={({ isActive }) => (isActive ? "Selected nav-link" : "unSelected nav-link")}
+                  >
+                    <Icon size={16} /> {label}
+                  </NavLink>
                 </li>
-              )}
-            </Link>
-            <Link to="/approveDonation">
-              {pathName("/approveDonation") ? (
-                <div className="Selected">
-                  <li>
-                    <RiUserReceivedFill size={16} /> Approve Order
-                  </li>
-                  <hr color="white"></hr>
-                </div>
-              ) : (
-                <li className="unSelected">
-                  <RiUserReceivedFill size={16} /> Approve Order
-                </li>
-              )}
-            </Link>
-            <Link to="/promoteUsertoVolunteer">
-              {pathName("/promoteUsertoVolunteer") ? (
-                <div className="Selected">
-                  <li>
-                    <MdVolunteerActivism size={16} /> Promote To Volunteer
-                  </li>
-                  <hr color="white"></hr>
-                </div>
-              ) : (
-                <li className="unSelected ">
-                  <MdVolunteerActivism size={16} /> Promote To Volunteer
-                </li>
-              )}
-            </Link>
-            <Link to="/promoteUsertoOrg">
-              {pathName("/promoteUsertoOrg") ? (
-                <div className="Selected">
-                  <li>
-                    <GiOrganigram size={16} /> Promote To Org
-                  </li>
-                  <hr color="white"></hr>
-                </div>
-              ) : (
-                <li className="unSelected">
-                  <GiOrganigram size={16} /> Promote To Org
-                </li>
-              )}
-            </Link>
-          </ul>
+              ))}
+            </ul>
+          </nav>
         )}
-        {
-          <Link to="/login" className="NavLoginLogoutButtonContainer Selected">
-            {user.length > 0 ? (
-              <button
-                className="NavLoginLogoutButton"
-                type="button"
-                onClick={(e) => LogoutUser(e)}
-              >
-                <IoLogOut size={24} />
-                <p>Logout</p>
-              </button>
-            ) : (
-              <button type="button" className="NavLoginLogoutButton">
+        <div className="NavLoginLogoutButtonContainer">
+          {user.length > 0 ? (
+            <button
+              className="NavLoginLogoutButton"
+              type="button"
+              onClick={(e) => LogoutUser(e)}
+              aria-label="Logout"
+            >
+              <IoLogOut size={24} />
+              <span>Logout</span>
+            </button>
+          ) : (
+            <Link to="/login" className="NavLoginLogoutButtonContainer Selected">
+              <button type="button" className="NavLoginLogoutButton" aria-label="Login">
                 <IoLogIn size={24} />
-                <p>Login</p>
+                <span>Login</span>
               </button>
-            )}
-          </Link>
-        }
+            </Link>
+          )}
+        </div>
       </div>
 
       <div className="NavBarContainerMiniDrawer">
         {!isOpen && (
           <div className="MiniDrawerHeader">
-            <div style={{width:"52px",height:"42px",padding:"15px"}} onClick={() => setIsOpen(true)}>
-            <RxHamburgerMenu size={24}/>
-            </div>
+            <button
+              className="hamburgerButton"
+              onClick={() => setIsOpen(true)}
+              aria-label="Open menu"
+              aria-expanded={isOpen}
+            >
+              <RxHamburgerMenu size={24} />
+            </button>
 
             {user.length > 0 ? (
               <button
                 className="NavLoginLogoutButton"
                 type="button"
                 onClick={(e) => LogoutUser(e)}
+                aria-label="Logout"
               >
                 <IoLogOut size={24} />
-                <p style={{ marginBottom: "0px" }}>Logout</p>
+                <span style={{ marginBottom: "0px" }}>Logout</span>
               </button>
             ) : (
-              <Link
-                to="/login"
-                
-                className="NavLoginLogoutButtonContainer Selected"
-              >
-                <button type="button" className="NavLoginLogoutButton">
+              <Link to="/login" className="NavLoginLogoutButtonContainer Selected">
+                <button type="button" className="NavLoginLogoutButton" aria-label="Login">
                   <IoLogIn size={24} />
-                  <p style={{ marginBottom: "0px" }}>Login</p>
+                  <span style={{ marginBottom: "0px" }}>Login</span>
                 </button>
               </Link>
             )}
@@ -162,11 +121,8 @@ function NavBar() {
 
             }}
           >
-            <div
-              onClick={() => setIsOpen(false)}
-              style={{ position: "absolute", top: "50px", right: "50px" }}
-            >
-              <IoIosCloseCircleOutline size={62}/>
+            <div className="miniClose" onClick={() => setIsOpen(false)}>
+              <IoIosCloseCircleOutline size={48} />
             </div>
             <div className="NavBarContainerMini">
               <Link to="/" className="homeLogo">
@@ -179,64 +135,20 @@ function NavBar() {
               </Link>
 
               {user.length > 0 && (
-                <ul className="navBarList">
-                  <Link to="/acceptDonation">
-                    {pathName("/acceptDonation") ? (
-                      <div className="Selected">
-                        <li>
-                          <FaBook size={16} /> Accept Donation
-                        </li>
-                        <hr color="white"></hr>
-                      </div>
-                    ) : (
-                      <li className="unSelected">
-                        <FaBook size={16} /> Accept Donation
+                <nav aria-label="Mobile navigation">
+                  <ul className="navBarList">
+                    {navItems.map(({ to, label, Icon }) => (
+                      <li key={to} onClick={() => setIsOpen(false)}>
+                        <NavLink
+                          to={to}
+                          className={({ isActive }) => (isActive ? "Selected nav-link" : "unSelected nav-link")}
+                        >
+                          <Icon size={16} /> {label}
+                        </NavLink>
                       </li>
-                    )}
-                  </Link>
-                  <Link to="/approveDonation">
-                    {pathName("/approveDonation") ? (
-                      <div className="Selected">
-                        <li>
-                          <RiUserReceivedFill size={16} /> Approve Order
-                        </li>
-                        <hr color="white"></hr>
-                      </div>
-                    ) : (
-                      <li className="unSelected">
-                        <RiUserReceivedFill size={16} /> Approve Order
-                      </li>
-                    )}
-                  </Link>
-                  <Link to="/promoteUsertoVolunteer">
-                    {pathName("/promoteUsertoVolunteer") ? (
-                      <div className="Selected">
-                        <li>
-                          <MdVolunteerActivism size={16} /> Promote To Volunteer
-                        </li>
-                        <hr color="white"></hr>
-                      </div>
-                    ) : (
-                      <li className="unSelected ">
-                        <MdVolunteerActivism size={16} /> Promote To Volunteer
-                      </li>
-                    )}
-                  </Link>
-                  <Link to="/promoteUsertoOrg">
-                    {pathName("/promoteUsertoOrg") ? (
-                      <div className="Selected">
-                        <li>
-                          <GiOrganigram size={16} /> Promote To Org
-                        </li>
-                        <hr color="white"></hr>
-                      </div>
-                    ) : (
-                      <li className="unSelected">
-                        <GiOrganigram size={16} /> Promote To Org
-                      </li>
-                    )}
-                  </Link>
-                </ul>
+                    ))}
+                  </ul>
+                </nav>
               )}
             </div>
           </div>

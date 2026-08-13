@@ -8,6 +8,7 @@ const PromoteUsertoVolunteer = () => {
   const [isLoading, setIsloading] = useState(true);
   const [users, setUsers] = useState(null);
   const [singleSearchValue, setSingleSearchValue] = useState("");
+  const [allUsers, setAllUsers] = useState([]);
 
   useEffect(() => {
     console.log("fetching");
@@ -22,6 +23,7 @@ const PromoteUsertoVolunteer = () => {
         `${process.env.REACT_APP_BASE_URL}/auth/users`
       );
       setUsers(BookData.data);
+      setAllUsers(BookData.data);
       console.log(BookData.data);
       setIsloading(false);
     } catch (error) {
@@ -30,30 +32,18 @@ const PromoteUsertoVolunteer = () => {
     }
   };
 
-  //   TODO:Test
-  const FetchDataByTitle = async (title) => {
-    setIsloading(true);
-    const data = { email: title };
-
-    try {
-      const BookData = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/auth/user`,
-        data
-      );
-      setUsers(BookData.data);
-      setIsloading((prev) => !prev);
-      console.log(users);
-    } catch (error) {
-      console.error(error);
-      setIsloading((prev) => !prev);
-    }
-  };
   const handleSingleSearch = (e) => {
     e.preventDefault();
-    if (singleSearchValue.length > 0) {
-      FetchDataByTitle(singleSearchValue);
+    const q = singleSearchValue.trim().toLowerCase();
+    if (q.length > 0) {
+      const filtered = allUsers.filter((u) => {
+        const name = (u.username || u.email || "").toString().toLowerCase();
+        return name.includes(q) || (u.email || "").toLowerCase().includes(q);
+      });
+      setUsers(filtered);
+    } else {
+      setUsers(allUsers);
     }
-    FetchData();
   };
   const handleChange = (e) => {
     e.preventDefault();
@@ -76,6 +66,7 @@ const PromoteUsertoVolunteer = () => {
       if (donationResponse.status == 200) {
         console.log(donationResponse);
         setUsers(() => users.filter((user) => user._id != id));
+        setAllUsers((prev) => prev.filter((user) => user._id != id));
         // updateDonationCount();
         setIsloading(false);
       }
@@ -101,6 +92,7 @@ const PromoteUsertoVolunteer = () => {
         console.log("============Rejecting Approval===============");
         console.log(donationResponse);
         setUsers(() => users.filter((user) => user._id != id));
+        setAllUsers((prev) => prev.filter((user) => user._id != id));
         // updateDonationCount();
         setIsloading(false);
       }
@@ -110,8 +102,25 @@ const PromoteUsertoVolunteer = () => {
     }
   };
 
+  const updateUser = async (id, payload) => {
+    setIsloading(true);
+    try {
+      const res = await axios.put(`${process.env.REACT_APP_BASE_URL}/auth/updateAccountTypeBlockUser/${id}`, payload);
+      if (res.status === 200) {
+        // merge only updated fields into existing user
+        setUsers((prev) => prev.map((u) => (u._id === id ? { ...u, ...(payload || {}), ...(res.data || {}) } : u)));
+        setAllUsers((prev) => prev.map((u) => (u._id === id ? { ...u, ...(payload || {}), ...(res.data || {}) } : u)));
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsloading(false);
+    }
+  };
+
   return (
     <div>
+      <h3 className="cardItemTitle">Promote user Account</h3>
       <div className="RequestSearch">
         <div className="RequestSearchOne">
           <input
@@ -127,7 +136,6 @@ const PromoteUsertoVolunteer = () => {
           </button>
         </div>
       </div>
-      <h3 className="cardItemTitle">Promote user to volunteer</h3>
       <div className="cardItemListTitle">
         <p style={{ width: "69px" }}>Image</p>
         <p style={{ textAlign: "left", flex: "2" }}>User</p>
@@ -146,8 +154,7 @@ const PromoteUsertoVolunteer = () => {
                 <Volunteers
                   key={index}
                   user={user}
-                  PromotionAccepted={PromotionAccepted}
-                  PromotionRejected={PromotionRejected}
+                  updateUser={updateUser}
                 />
               );
             }

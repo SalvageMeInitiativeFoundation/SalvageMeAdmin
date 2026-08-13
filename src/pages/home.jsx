@@ -34,72 +34,30 @@ function Home() {
   return (
     <>
       <div>
-        <div className="Dashboard">
-          <div className="DashboardMini">
-            <div className="C1"></div>
-            <h3>
-              {
-                donations.filter(
-                  (donation) => donation.category == "Philosophy & Psychology"
-                ).length
-              }
-            </h3>
-            <p>Philosophy & Psychology</p>
-          </div>
-          <div className="DashboardMini">
-            <div className="C1"></div>
-            <h3>
-              {
-                donations.filter((donation) => donation.category == "Religion")
-                  .length
-              }
-            </h3>
-            <p>Religion</p>
-          </div>
-          <div className="DashboardMini">
-            <div className="C1"></div>
-            <h3>
-              {
-                donations.filter(
-                  (donation) => donation.category == "Geography & History"
-                ).length
-              }
-            </h3>
-            <p>Geography & History</p>
-          </div>
-          <div className="DashboardMini">
-            <div className="C1"></div>
-            <h3>
-              {
-                donations.filter(
-                  (donation) => donation.category == "Literature"
-                ).length
-              }
-            </h3>
-            <p>Literature</p>
-          </div>
-          <div className="DashboardMini">
-            <div className="C1"></div>
-            <h3>
-              {
-                donations.filter(
-                  (donation) => donation.category == "Science & Math"
-                ).length
-              }
-            </h3>
-            <p>Science & Math</p>
-          </div>
-          <div className="DashboardMini">
-            <div className="C1"></div>
-            <h3>
-              {
-                donations.filter(
-                  (donation) => donation.category == "Social Science"
-                ).length
-              }
-            </h3>
-            <p>Social Science</p>
-          </div>
+        <div className="Dashboard" role="region" aria-label="Category summary">
+          {[
+            "language",
+            "religion",
+            "social science",
+            "ap. science & technology",
+            "art recreation",
+            "science & math",
+            "generalities",
+            "literature",
+            "geography & history",
+            "philosophy & psychology",
+          ].map((cat) => {
+            const count = donations.filter(
+              (donation) => donation.category && donation.category.toLowerCase() === cat.toLowerCase()
+            ).length;
+            return (
+              <div className="DashboardMini" key={cat}>
+                <div className="C1"></div>
+                <h3>{count}</h3>
+                <p>{cat.charAt(0).toUpperCase() + cat.slice(1)}</p>
+              </div>
+            );
+          })}
         </div>
         <h4 className="cardItemTitle">SalvageMe Analytics</h4>
         <div className="GRAPHDashboardContainer">
