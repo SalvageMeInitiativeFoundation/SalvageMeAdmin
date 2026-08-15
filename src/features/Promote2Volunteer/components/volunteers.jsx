@@ -31,8 +31,8 @@ function Volunteers({ user, updateUser }) {
   return (
     <>
       <div className="cardItem">
-        <img src={imgSrc} alt={user.username || user.email} />
-        <p style={{ textAlign: "left", flex: "2", textOverflow: "ellipsis", overflow: "hidden" }}>{user.username || user.email}</p>
+        <div className="avatar" style={{ backgroundImage: `url(${imgSrc})` }} role="img" aria-label={user.username || user.email} />
+        <p style={{ textAlign: "left", flex: "2", textOverflow: "ellipsis", overflow: "hidden", fontWeight: "600" }}>{user.username || user.email}</p>
         <p className="staticColumnHeadTwo">{user.accountType}</p>
 
         <div className="cardItemDetails">
