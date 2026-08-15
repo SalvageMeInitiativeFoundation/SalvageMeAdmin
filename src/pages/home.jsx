@@ -6,6 +6,7 @@ import Spinner from "../shared/spinner";
 import LineGraph from "../features/home/components/lineGraph";
 import Pie from "../features/home/components/pieGraph";
 import Pierecept from "../features/home/components/pierecept";
+import { toast } from "react-toastify";
 
 function Home() {
   const [isLoading, setIsloading] = useState(true);
@@ -28,12 +29,15 @@ function Home() {
     } catch (error) {
       setIsloading(false);
       console.log(error);
+      toast.error(error.message)
     }
   };
 
   return (
     <>
       <div>
+        <h1 className="pageTitle">Dashboard</h1>
+        <p className="pageSubtitle">Overview of donation counts by category to help you monitor inventory distribution.</p>
         <div className="Dashboard" role="region" aria-label="Category summary">
           {[
             "language",
@@ -50,16 +54,19 @@ function Home() {
             const count = donations.filter(
               (donation) => donation.category && donation.category.toLowerCase() === cat.toLowerCase()
             ).length;
+            const displayLabel = cat
+              .split(/\s+/)
+              .map((w) => (w.length ? w.charAt(0).toUpperCase() + w.slice(1) : w))
+              .join(' ');
             return (
-              <div className="DashboardMini" key={cat}>
-                <div className="C1"></div>
-                <h3>{count}</h3>
-                <p>{cat.charAt(0).toUpperCase() + cat.slice(1)}</p>
+              <div className="DashboardMini" key={cat} aria-label={`${displayLabel}: ${count} items`} title={`${displayLabel}: ${count}`}>
+                <div className="C1" aria-hidden="true"></div>
+                <h3 aria-hidden="true">{count}</h3>
+                <p>{displayLabel}</p>
               </div>
             );
           })}
         </div>
-        <h4 className="cardItemTitle">SalvageMe Analytics</h4>
         <div className="GRAPHDashboardContainer">
           {isLoading ? (
             <Spinner></Spinner>

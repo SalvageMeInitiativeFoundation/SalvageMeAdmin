@@ -50,6 +50,15 @@ input[type="password"] {
   margin-top: 5px;
   margin-bottom: 5px;
 }
+input[type="email"]:focus,
+input[type="text"]:focus,
+input[type="link"]:focus,
+input[type="password"]:focus,
+textarea:focus {
+  border-color: var(--brand);
+  box-shadow: 0 0 0 6px rgba(253,126,20,0.08);
+  outline: none;
+}
 input[type="checkbox"] {
   border-radius: 10px;
   margin-top: 5px;
@@ -84,6 +93,7 @@ button {
   margin: 1px 2px;
   color: white;
   cursor: pointer;
+  font-weight: 700;
 }
 .PromoButtonSecondary {
   background-color: black;
@@ -94,6 +104,7 @@ button {
   margin: 2px 2px;
   color: white;
   cursor: pointer;
+  font-weight: 700;
 }
 .PromoButtonSecondary:hover{background-color: rgb(28, 26, 26)}
 .PromoButtonTertiary {
@@ -105,6 +116,7 @@ button {
   color: red;
   cursor: pointer;
   margin: 2px 2px;
+  font-weight: 700;
 }
 .PromoButtonTertiary:hover {
   background-color: rgb(250, 220, 220); 
@@ -114,10 +126,11 @@ button {
   padding: 10px 12px;
   border-radius: 8px;
   width: fit-content;
-  border: 1px solid black;
+  border: 1px solid var(--brand);
   color: var(--brand);
   cursor: pointer;
   margin: 2px 2px;
+  font-weight: 700;
 }
 .MailButton:hover{background: rgba(47,158,68,0.08)}
 .LogoutButton {
@@ -230,6 +243,13 @@ p {
   height:30vh;
   padding:5px;
 }
+.pieContainer .cardItemTitle{
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 6px 0 10px 0;
+  text-align: center;
+  color: #111827;
+}
 .NavBarContainer {
   height: 100vh;
   margin-right: 10px;
@@ -241,6 +261,8 @@ p {
   padding: 0px 0px 0px 0px;
   backdrop-filter: blur(20px);
   border-radius: 0px 15px 15px 0px;
+  position: relative;
+  z-index: 1000;
 }
 .NavBarContainer h2 {
   color: white;
@@ -369,12 +391,13 @@ p {
   gap: 5px;
   flex-direction: row;
   padding: 10px;
-  width:93vw ;
+  width: 93vw;
   height: fit-content;
-  margin: 0px 10px 2px 10px;
-  border-radius: 10px;
-  box-shadow: rgba(226, 226, 226, 0.2) 0px 2px 4px 0px;
-  justify-content: space-evenly;
+  margin: 0px 10px 0px 10px;
+  border-radius: 0px;
+  background: #ffffff;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  justify-content: space-between;
 }
 .cardItemListTitle {
   display: flex;
@@ -388,7 +411,7 @@ p {
   margin: 5px auto;
   background-color: #fafafa;
   border-radius: 10px 10px 0px 0px;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 1px 0px;
+  box-shadow: none;
   justify-content: space-evenly;
 }
 .cardItem:hover {
@@ -397,16 +420,16 @@ p {
   height: 190px; */
 }
 .cardItem img {
-  width: 69px;
-  height: 69px;
-  border-radius: 10px;
+  width: 46px;
+  height: 46px;
+  border-radius: 6px;
 }
 .cardItemDetails {
   display: flex;
   flex: 4;
-  justify-content: space-evenly;
+  justify-content: flex-end;
   align-items: center;
-  flex-wrap: wrap;
+  gap: 12px;
 }
 .staticColumnHead{
   text-align: left;
@@ -459,9 +482,151 @@ p {
   text-align: center;
   border-radius: 15px;
   box-shadow: rgba(226, 226, 226, 0.2) 0px 2px 4px 0px;
-  height: 150px;
+  height: 120px;
   padding: 0px 10px;
   margin: 10px;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+.DashboardMini h3{
+  font-size: 2rem;
+  margin: 10px 0 10px 0;
+  line-height: 1;
+}
+.DashboardMini p{
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+  text-transform: capitalize;
+  margin-top: 6px;
+}
+
+.pageSubtitle{
+  color: var(--muted);
+  margin-top: 8px;
+  margin-bottom: 18px;
+  font-size: 0.95rem;
+}
+
+/* Page title spacing */
+.PageTitle{
+  font-size: 1.6rem;
+  margin: 16px 0 6px;
+  line-height: 1.1;
+}
+
+/* Accept Donation table styling */
+.donationTable{
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 12px;
+  margin-bottom: 32px;
+}
+.donationTable .cardItem:last-child{
+  border-bottom: none;
+}
+.donationTable .cardItemListTitle{
+  background: #ffffff;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: none; /* remove header bottom border for donation table */
+}
+.searchInput{
+  height: 40px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,0.12);
+  box-sizing: border-box;
+  width: 36rem;
+  max-width: 60vw;
+}
+
+.searchInput:focus {
+  border-color: var(--brand);
+  box-shadow: 0 0 0 6px rgba(253,126,20,0.08);
+  outline: none;
+}
+
+/* Style the native search clear/cancel icon in WebKit to be black */
+.searchInput::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24'><path fill='black' d='M18.3 5.71L12 12l6.3 6.29-1.41 1.42L12 13.41 5.71 19.7 4.29 18.29 10.59 12 4.29 5.71 5.7 4.29 12 10.59l6.29-6.3z'/></svg>") center/16px no-repeat;
+  cursor: pointer;
+}
+
+.cardTitle{
+  text-align: left;
+  flex: 2;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.cardTitleText{
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.donorText{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.donationTable {
+  background: linear-gradient(180deg,#ffffff,#ffffff);
+}
+
+/* Limit height of donation table rows to avoid full-page vertical overflow */
+.donationTable .flexLayout {
+  max-height: 65vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Manual search button next to the search input */
+.SearchButton {
+  height: 40px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  background: var(--brand);
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: 700;
+}
+.SearchButton:hover{
+  background: var(--brand);
+}
+
+.donationTableWrapper{ /* optional wrapper to center content */
+  display:flex;
+  justify-content:center;
+}
+
+/* empty state styling */
+.emptyState{
+  padding: 24px;
+  text-align: center;
+  background: #ffffff;
+  border: 1px dashed rgba(0,0,0,0.06);
+  border-radius: 8px;
+  margin: 12px;
+}
+
+/* make view details button text bold within card actions */
+.cardItemDetails .PromoButtonSecondary {
+  font-weight: 700;
+}
+.flexLayout{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 8px;
 }
 .statusBadge{
   display:inline-block;
@@ -495,15 +660,53 @@ p {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  min-height: 100vh;
 }
 .authBackdrop{
   background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     width: 100%;
-    height: 100%;
+    height: 100vh;
     display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 0;
 
+}
+.formError{
+  background: #f8d7da;
+  color: #842029;
+  border: 1px solid #f5c2c7;
+  padding: 10px 12px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.inputInvalid{
+  border-color: #d9534f !important;
+  box-shadow: 0 0 0 6px rgba(217,83,79,0.06) !important;
+}
+.inputErrorText{
+  color: #d9534f;
+  font-size: 13px;
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+
+/* Tighten react-toastify close button spacing */
+.Toastify__toast {
+  padding-right: 8px !important;
+}
+.Toastify__close-button {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 28px !important;
+  height: 28px !important;
+}
+.Toastify__close-button > svg {
+  display: block;
 }
 .LoginForm {
   display: block;
@@ -517,9 +720,35 @@ p {
   background-color: #ffffff;
 
 }
+.LoginForm .loginTitle{
+  text-align: center;
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0 0 6px 0;
+}
+.LoginForm .loginSubtitle{
+  text-align: center;
+  color: var(--muted);
+  margin: 0 0 20px 0;
+  font-size: 0.95rem;
+}
+
+.LoginForm form{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.LoginForm form > div{
+  margin-bottom: 6px;
+}
+
+.LoginForm .LogInButton{
+  margin-top: 5px;
+}
 .LogInButton {
   display: block;
-  margin-top: 10px;
+  margin-top: 5px;
   margin-bottom: 18px;
   place-items: center;
   margin: auto;
@@ -572,7 +801,7 @@ p {
 }
 .sideModalHeader{display:flex;justify-content:space-between;align-items:center}
 .sideModalBody{flex:1;overflow:auto;padding-top:12px}
-.sideModalFooter{display:flex;gap:8px;justify-content:flex-end;padding-top:12px}
+.sideModalFooter{display:flex;gap:8px;justify-content:flex-end;padding-top:12px;flex-direction:column}
 .detailRow{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #f2f2f2}
 .statusSelect{padding:8px;border-radius:6px;border:1px solid #e5e5e5}
 
@@ -581,6 +810,7 @@ p {
 
 .sideModalFooter > button {
   margin-bottom: 12px;
+  width: 100%;
 }
 
 @media (max-width: 480px) {
@@ -657,8 +887,8 @@ p {
 }
 
 .RequestSearch {
-  margin:0px 5px auto auto;
-  width: 93vw;
+  margin: 16px 0 20px;
+  /* width: 93vw; */
   display: flex;
   justify-content: space-between;
   justify-items: baseline;
@@ -705,7 +935,7 @@ p {
   cursor: pointer;
 }
 .dropdown-item.selected {
-  background-color: #0d6efd;
+  background-color: #0b0b0b;
   color: #fff;
 }
 .dropdown-item:hover {
@@ -714,18 +944,19 @@ p {
 
 .Filter-container {
   text-align: left;
-  border: 2px solid rgb(226, 226, 226);
+  border: 1px solid rgba(0,0,0,0.12);
   position: relative;
-  border-radius: 10px;
+  border-radius: 8px;
   margin: 5px 0px 5px 0px;
 }
 .Filter-input {
-  padding:0px 5px;
+  padding: 8px 12px;
   height: 40px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   user-select: none;
+  box-sizing: border-box;
 }
 .Filter-menu {
   position: absolute;
@@ -742,7 +973,7 @@ p {
   cursor: pointer;
 }
 .Filter-item.selected {
-  background-color: #0d6efd;
+  background-color: #0b0b0b;
   color: #fff;
 }
 .Filter-item:hover {
@@ -842,22 +1073,23 @@ p {
   .staticColumnHead{
     flex: 2;
   }
-  .cardItemListTitle{
-    display: none;
-  }
-  .cardItem {
+  .donationTableHeader, .cardItemListTitle {
     display: flex;
-    place-items: start;
+    place-items: center;
     gap: 5px;
-    flex-direction: column;
+    flex-direction: row;
     padding: 10px;
-    width:89vw ;
-    height: fit-content;
-    margin:7px 10px ;
-    border-radius: 10px;
-    justify-content: space-evenly;
-    border: #f0efef solid 1px;
+    width: 100%;
+    max-width: 93vw;
+    height: 30px;
+    font-weight: 700;
+    margin: 0; /* remove left/right centering margin */
+    background-color: #fafafa;
+    border-radius: 10px 10px 0px 0px;
+    box-shadow: none;
+    justify-content: space-between;
   }
+
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
@@ -992,9 +1224,22 @@ p {
     box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 1px 0px;
     justify-content: space-evenly;
   }
+  /* donation table header override: remove shadow/bottom-border and horizontal margins */
+  .cardItemListTitle.donationTableHeader,
+  .donationTableHeader {
+    box-shadow: none !important;
+    margin: 0 !important;
+    /* restore horizontal padding equivalent to the removed margin (5px) */
+    padding-left: calc(16px + 15px) !important;
+    padding-right: calc(16px + 15px) !important;
+    border-bottom: 1px solid rgba(0,0,0,0.06) !important;
+    width: 100% !important;
+    max-width: 93vw !important;
+    justify-content: space-between !important;
+  }
   .RequestSearch {
-    margin: 5px auto;
-    width: 80vw;
+    margin: 5px 0px;
+    /* width: 80vw; */
     display: flex;
     justify-content: space-between;
     justify-items: baseline;

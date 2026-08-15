@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import DonorBook from "../features/acceptDonation/components/donorBook";
 import { IoIosFunnel } from "react-icons/io";
 import Filter from "../components/filter";
@@ -16,6 +16,22 @@ function ApproveDonation() {
   const [isLoading, setIsloading] = useState(true);
   const [donations, setDonations] = useState([]);
   const [allDonations, setAllDonations] = useState([]);
+  const [statusFilter, setStatusFilter] = useState('all');
+  const searchDebounceRef = useRef(null);
+  const statusFilterRef = useRef(statusFilter);
+
+  useEffect(() => {
+    statusFilterRef.current = statusFilter;
+  }, [statusFilter]);
+
+  useEffect(()=>{
+    return () => {
+      if (searchDebounceRef.current) {
+        clearTimeout(searchDebounceRef.current);
+        searchDebounceRef.current = null;
+      }
+    }
+  },[])
 
   useEffect(() => {
     FetchData();
@@ -43,22 +59,23 @@ function ApproveDonation() {
   };
   const handleSingleSearch = (e) => {
     e.preventDefault();
-    const q = singleSearchValue.trim().toLowerCase();
-    if (q.length > 0) {
-      const filtered = allDonations.filter((d) => {
-        const title = (d.book_id && d.book_id.title) || d.title || "";
-        return title.toLowerCase().includes(q);
-      });
-      setDonations(filtered);
-    } else {
-      setDonations(allDonations);
+    if (searchDebounceRef.current) {
+      clearTimeout(searchDebounceRef.current);
+      searchDebounceRef.current = null;
     }
+    applyFilters(singleSearchValue, statusFilterRef.current);
   };
 
   const handleChange = (e) => {
     e.preventDefault();
     console.log(e.target.value);
-    setSingleSearchValue(e.target.value);
+    const v = e.target.value || '';
+    setSingleSearchValue(v);
+    if (searchDebounceRef.current) clearTimeout(searchDebounceRef.current);
+    searchDebounceRef.current = setTimeout(() => {
+      applyFilters(v, statusFilterRef.current);
+      searchDebounceRef.current = null;
+    }, 300);
   };
 
   const options = [
@@ -70,6 +87,22 @@ function ApproveDonation() {
     { value: "returned", label: "Returned" },
     { value: "delivering", label: "Delivering" },
   ];
+
+  const applyFilters = (term = '', status = 'all') => {
+    let result = allDonations || [];
+    const s = (status || 'all').toString().toLowerCase();
+    if (s && s !== 'all') {
+      result = result.filter((it) => (it.status || '').toString().toLowerCase() === s);
+    }
+    if (term && term.trim() !== '') {
+      const q = term.toString().toLowerCase();
+      result = result.filter((d) => {
+        const title = (d.book_id && d.book_id.title) || d.title || '';
+        return title.toString().toLowerCase().includes(q);
+      });
+    }
+    setDonations(result);
+  };
 
   // Generic request status updater
   const updateRequestStatus = async (id, status) => {
@@ -95,31 +128,43 @@ function ApproveDonation() {
 
   return (
     <div>
-      <h3 className="cardItemTitle">Approve Book Request</h3>
+      <h3 className="PageTitle">Approve Book Request</h3>
+        <p className="pageSubtitle">Review incoming book requests and approve, reject, or update their status.</p>
       <div className="RequestSearch">
-        <div className="RequestSearchOne">
-          <input
-            type="text"
-            name="BooKName"
-            id="bookName"
-            placeholder="Search for book"
-            onChange={handleChange}
-            value={singleSearchValue}
-          />
-          <button type="button" onClick={handleSingleSearch}>
-            Search
-          </button>
-        </div>
-        <div>
+          <div className="SearchGroup" style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+            <input
+              type="text"
+              name="BooKName"
+              id="bookName"
+              placeholder="Search for book by title"
+              onChange={handleChange}
+              value={singleSearchValue}
+              className="searchInput"
+              onKeyDown={(e) => { if (e.key === 'Enter') { if (searchDebounceRef.current) { clearTimeout(searchDebounceRef.current); searchDebounceRef.current = null; } handleSingleSearch(e); } }}
+            />
+            <button type="button" className="SearchButton" onClick={handleSingleSearch}>
+              Search
+            </button>
+          </div>
           <Filter
             placeHolder={"Filter by status..."}
             options={options}
             setDonations={setDonations}
             items={allDonations}
+            value={statusFilter}
+            onChangeOption={(option) => {
+              const val = (option.value || option.label || 'all').toString().toLowerCase();
+              if (searchDebounceRef.current) {
+                clearTimeout(searchDebounceRef.current);
+                searchDebounceRef.current = null;
+              }
+              setStatusFilter(val);
+              applyFilters(singleSearchValue, val);
+            }}
           />
-        </div>
       </div>
-      <div className="cardItemListTitle">
+      <div className="donationTable"> 
+      <div className="cardItemListTitle donationTableHeader">
         <p style={{ width: "69px" }}>Image</p>
         <p style={{ textAlign: "left", flex: "2" }}>Title</p>
         <p className="staticColumnHead" >Receiver</p>
@@ -138,7 +183,7 @@ function ApproveDonation() {
             <p style={{ color: "var(--muted)", marginTop: 8 }}>There are no matching book requests. Try changing your filters or search.</p>
             <div style={{ marginTop: 16, display: "flex", justifyContent: "center", gap: 8 }}>
               <button className="PromoButtonPrimary" onClick={FetchData}>Refresh</button>
-              <button className="PromoButtonTertiary" onClick={() => { setDonations(allDonations); setSingleSearchValue(""); }}>Clear</button>
+              <button className="PromoButtonTertiary" onClick={() => { if (searchDebounceRef.current) { clearTimeout(searchDebounceRef.current); searchDebounceRef.current = null; } setDonations(allDonations); setSingleSearchValue(""); setStatusFilter('all'); }}>Clear</button>
             </div>
           </div>
         </div>
@@ -159,6 +204,8 @@ function ApproveDonation() {
           })}
         </div>
       )}
+      </div>
+      
     </div>
   );
 }
