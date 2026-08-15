@@ -1,52 +1,73 @@
-import axios from "axios";
-import React, { useEffect, useState, useContext } from "react";
-import { UserContext } from "../../../context/userContext/userContext";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 
-function ApproveDonorBook({ donation, ApprovalRejected, ApprovalAccepted }) {
-  const message =
-    "Hello %0D  We have approved your request for ............................. ";
+function ApproveDonorBook({ donation, updateRequestStatus }) {
+  const [showDetails, setShowDetails] = useState(false);
+  const [selectedStatus, setSelectedStatus] = useState(donation.status || "pending");
+
+  const statuses = ["pending", "approved", "rejected", "fulfilled", "returned", "delivering"];
+
+  const handleSave = async () => {
+    if (updateRequestStatus) await updateRequestStatus(donation._id, selectedStatus);
+    setShowDetails(false);
+  };
+
+  const recipientName = donation.recipient_id && donation.recipient_id.username ? donation.recipient_id.username : 'N/A';
+  const book = donation.book_id || {};
 
   return (
-    <div className="cardItem">
-      <img src={donation.image} alt="Heroe's image" />
-      <p style={{ textAlign: "left", flex: "2" }}>{donation.title}</p>
-      <p className="staticColumnHead">
-        { donation.currentReciever}
-      </p>
-      <p style={{ textAlign: "left", flex: "1" }}>
-        {Date(donation.updatedAt).split("G")[0]}
-      </p>
-      <div className="cardItemDetails">
-        <button
-          className="PromoButtonPrimary"
-          type="button"
-          onClick={(e) => ApprovalAccepted(donation._id, e)}
-        >
-          Approve
-        </button>
-        <a
-          href={`mailto:${donation.currentReciever}?subject=Acceptance of Request&body=${message}`}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <button
-            className="MailButton"
-            type="button"
-            onClick={(e) => console.log("mail sent")}
-          >
-            Mail
+    <>
+      <div className="cardItem">
+        <div className="thumb" style={{ backgroundImage: `url(${book.image})` }} role="img" aria-label={book.title} />
+        <p className="cardTitle">
+          <span className="cardTitleText">{book.title}</span>
+          <span className={`statusBadge ${(donation.status || '').toLowerCase().replace(/\s+/g,'')}`}>
+            {donation.status}
+          </span>
+        </p>
+        <p className="staticColumnHead">{recipientName}</p>
+        <p style={{ textAlign: "left", flex: "1" }}>{new Date(donation.updatedAt).toLocaleString()}</p>
+        <div className="cardItemDetails">
+          <button className="PromoButtonSecondary" type="button" onClick={() => setShowDetails(true)}>
+            View Details
           </button>
-        </a>
-        <button
-          className="PromoButtonTertiary"
-          type="button"
-          onClick={(e) => ApprovalRejected(donation._id, e)}
-        >
-          Reject
-        </button>
+        </div>
       </div>
-    </div>
+
+      {showDetails && (
+        <div className="modalOverlay" onClick={() => setShowDetails(false)}>
+          <div className="sideModal" onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true">
+            <div className="sideModalHeader">
+              <h3>Request Details</h3>
+              <button className="PromoButtonTertiary" onClick={() => setShowDetails(false)}>Close</button>
+            </div>
+            <div className="sideModalBody">
+              <img src={book.image} alt={book.title} className="modalImage" />
+
+              <div className="detailRow">
+                <strong>Status:</strong>
+                <select className="statusSelect" value={selectedStatus} onChange={(e) => setSelectedStatus(e.target.value)}>
+                  {statuses.map((s) => (
+                    <option key={s} value={s}>{s}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="detailRow"><strong>Recipient:</strong><span>{recipientName}</span></div>
+              <div className="detailRow"><strong>Delivery Location:</strong><span>{donation.delivery_location || 'N/A'}</span></div>
+              <div className="detailRow"><strong>Return Due:</strong><span>{donation.return_due_date ? new Date(donation.return_due_date).toLocaleString() : 'N/A'}</span></div>
+              <div className="detailRow"><strong>Request Date:</strong><span>{donation.request_date ? new Date(donation.request_date).toLocaleString() : 'N/A'}</span></div>
+              <div className="detailRow"><strong>Created At:</strong><span>{new Date(donation.createdAt).toLocaleString()}</span></div>
+              <div className="detailRow"><strong>Updated At:</strong><span>{new Date(donation.updatedAt).toLocaleString()}</span></div>
+            </div>
+            <div className="sideModalFooter">
+              <button className="PromoButtonPrimary" onClick={handleSave}>Save</button>
+              <button className="PromoButtonTertiary" onClick={() => setShowDetails(false)}>Cancel</button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
+
 export default ApproveDonorBook;

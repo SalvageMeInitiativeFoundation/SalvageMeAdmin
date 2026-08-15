@@ -1,18 +1,31 @@
 import { useEffect, useState } from "react";
 import { IoIosFunnel } from "react-icons/io";
-import axios from "axios";
 
 
-
-const Filter = ({ placeHolder,options,setDonations,setIsLoading}) => {
-    const [showMenu,setShowMenu]=useState(false);
-    const [selectedValue, setSelectedValue] = useState(null);
+const Filter = ({ placeHolder, options, setDonations, items = [], onChangeOption, value }) => {
+  const [showMenu,setShowMenu]=useState(false);
+  const [selectedValue, setSelectedValue] = useState(null);
     
     useEffect(()=>{
         const handler = ()=>setShowMenu(false)
         window.addEventListener("click",handler)
         return ()=>{window.removeEventListener("click",handler)}
     })
+
+    // keep internal selectedValue in sync when parent provides a value prop
+    useEffect(() => {
+      if (value === undefined || value === null) return;
+      const valStr = (value || '').toString().toLowerCase();
+      const found = (options || []).find((o) => ((o.value || o.label) || '').toString().toLowerCase() === valStr);
+      if (found) {
+        setSelectedValue(found);
+      } else if (valStr === 'all') {
+        const allOpt = (options || []).find((o) => (o.value || '').toString().toLowerCase() === 'all');
+        setSelectedValue(allOpt || null);
+      } else {
+        setSelectedValue(null);
+      }
+    }, [value, options]);
 
     const handleInputClick = (e)=>{
         e.stopPropagation()
@@ -29,7 +42,23 @@ const Filter = ({ placeHolder,options,setDonations,setIsLoading}) => {
 
     const onItemClick = (option)=>{
         setSelectedValue(option);
-        FetchDataByCategory(option.label);
+        // notify parent of selected option if handler provided
+        if(onChangeOption) onChangeOption(option);
+        // filter locally from provided items by status if setDonations provided
+        if(!items || items.length < 1){
+          if(setDonations) setDonations([]);
+          return;
+        }
+        const val = (option.value || option.label || "").toString().toLowerCase();
+        if(val === "all" || val.includes("all")){
+          if(setDonations) setDonations(items);
+          return;
+        }
+        const filtered = items.filter((it) => {
+          const status = (it.status || "").toString().toLowerCase();
+          return status === val;
+        });
+        if(setDonations) setDonations(filtered);
     }
 
     const isSelected = (option)=>{
@@ -39,22 +68,7 @@ const Filter = ({ placeHolder,options,setDonations,setIsLoading}) => {
         return selectedValue.value===option.value;
     }
 
-    const FetchDataByCategory=async(category)=>{
-      // setIsLoading((prev)=>!prev)
-      try {
-        const BookData = await axios.get(
-          `${process.env.BASE_URL}/donation/category/${category}`       
-        );
-        console.log(BookData.data)
-        setDonations(BookData.data);
-        // setIsLoading((prev)=>!prev)
-      } catch (error) {
-        console.error(error)
-        // setIsLoading((prev)=>!prev)
-      }
-  
-    }
-
+    
   
     return (
       <div className="Filter-container">
