@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect, useContext } from "react";
+import { toast } from 'react-toastify';
 import { Link, useNavigate } from "react-router-dom";
 import { MdCloudUpload } from "react-icons/md";
 import { UserContext } from "../context/userContext/userContext";
@@ -104,6 +105,8 @@ function SignUp() {
         }
       } catch (error) {
         console.log(error);
+        const msg = error?.response?.data?.message || error?.message || 'Could not create account';
+        toast.error(msg, { position: 'top-right', autoClose: 5000 });
       }
     }
   }

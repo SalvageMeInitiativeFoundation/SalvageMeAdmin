@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { toast } from 'react-toastify';
 
 function DonorBook({ donation, user, DonationAccepted, DonationRejected, updateDonationStatus }) {
   const [showDetails, setShowDetails] = useState(false);
@@ -22,10 +23,50 @@ function DonorBook({ donation, user, DonationAccepted, DonationRejected, updateD
     setShowDetails(false);
   };
 
-  const acceptedByName =
-    donation.acceptedBy || (donation.currentReciever && donation.currentReciever.username) ||
-    (donation.listRecievers && donation.listRecievers[0] && donation.listRecievers[0].username) ||
-    "N/A";
+  const mailTimerRef = useRef(null);
+
+  useEffect(() => {
+    return () => {
+      if (mailTimerRef.current) {
+        clearTimeout(mailTimerRef.current);
+        mailTimerRef.current = null;
+      }
+    };
+  }, []);
+
+  const handleManualMail = (e) => {
+    e.preventDefault();
+    const subject = 'Appreciation for Donation';
+    const body = message;
+    const mailto = `mailto:${donation.donor}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    toast.info('Your email app or browser will open in 3 seconds to compose the message.', { autoClose: 3000, position: 'top-right' });
+
+    if (mailTimerRef.current) clearTimeout(mailTimerRef.current);
+    mailTimerRef.current = setTimeout(() => {
+      // open mail client
+      try {
+        window.location.href = mailto;
+      } catch (err) {
+        // fallback to open
+        console.error('Error opening mail client:', err);
+        window.open(mailto, '_blank');
+        toast.error('Could not open email client. Please check your browser settings.', { position: 'top-right', autoClose: 5000 });
+      }
+      mailTimerRef.current = null;
+    }, 3000);
+  };
+
+  const acceptedByName = (() => {
+    // acceptedBy can be an object { _id, username } or a string/null
+    if (donation.acceptedBy) {
+      if (typeof donation.acceptedBy === 'object') return donation.acceptedBy.username || 'N/A';
+      return donation.acceptedBy;
+    }
+    if (donation.currentReciever && donation.currentReciever.username) return donation.currentReciever.username;
+    if (donation.listRecievers && donation.listRecievers[0] && donation.listRecievers[0].username) return donation.listRecievers[0].username;
+    return 'N/A';
+  })();
 
   return (
     <>
@@ -36,41 +77,23 @@ function DonorBook({ donation, user, DonationAccepted, DonationRejected, updateD
           aria-label={donation.title}
           style={{ backgroundImage: `url(${donation.image})` }}
         />
-        <p style={{ textAlign: "left", flex: "2" }}>
-          {donation.title}
+        <p className="cardTitle">
+          <span className="cardTitleText">{donation.title}</span>
           <span className={`statusBadge ${(donation.status || '').toLowerCase().replace(/\s+/g,'')}`}>
             {donation.status}
           </span>
         </p>
-        <p className="staticColumnHead">{donation.donor}</p>
+        <p className="staticColumnHead donorText">{donation.donor}</p>
         <p style={{ textAlign: "left", flex: "1" }}>
           {new Date(donation.updatedAt).toLocaleString()}
         </p>
 
         <div className="cardItemDetails">
-          {/* <button
-            className="PromoButtonPrimary "
-            type="button"
-            onClick={(e) => DonationAccepted(donation._id, e)}
-          >
-            Accept
-          </button> */}
-          <a
-            href={`mailto:${donation.donor}?subject=Appreciation for Donation&body=${message}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <button className="MailButton" type="button" onClick={(e) => console.log("mail sent")}>
-              Initiate Manual Mail
-            </button>
-          </a>
-          {/* <button
-            className="PromoButtonTertiary"
-            type="button"
-            onClick={(e) => DonationRejected(donation._id, e)}
-          >
-            Reject
-          </button> */}
+          
+          <button className="MailButton" type="button" onClick={handleManualMail}>
+            Initiate Manual Mail
+          </button>
+          
           <button className="PromoButtonSecondary" type="button" onClick={() => setShowDetails(true)}>
             View Details
           </button>

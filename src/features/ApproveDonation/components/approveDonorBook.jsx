@@ -18,8 +18,8 @@ function ApproveDonorBook({ donation, updateRequestStatus }) {
     <>
       <div className="cardItem">
         <div className="thumb" style={{ backgroundImage: `url(${book.image})` }} role="img" aria-label={book.title} />
-        <p style={{ textAlign: "left", flex: "2" }}>
-          {book.title}
+        <p className="cardTitle">
+          <span className="cardTitleText">{book.title}</span>
           <span className={`statusBadge ${(donation.status || '').toLowerCase().replace(/\s+/g,'')}`}>
             {donation.status}
           </span>
