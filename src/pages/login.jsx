@@ -116,9 +116,9 @@ function Login(){
         <label htmlFor="Password">Password</label><br></br>
         <input type="password" name="Password" id="password" placeholder="Enter your password" required={true} value={password} onChange={handleChange}/><br></br>
         </div>
-        <p style={{textAlign:"right",color:"#fd7e14",cursor:"pointer", fontWeight:700,}} onClick={handlePortalRedirect(`${process.env.REACT_APP_CLIENT_PORTAL}/login`, 'Reset password is handled on the client portal. Redirecting in 3 seconds...')}>Forgot password?</p>
+        <p style={{textAlign:"right",cursor:"pointer", }} onClick={handlePortalRedirect(`${process.env.REACT_APP_CLIENT_PORTAL}/login`, 'Reset password is handled on the client portal. Redirecting in 3 seconds...')}>Forgot password?</p>
         <button  className="LogInButton" type="submit">{`${isLoading?'Logging in...': 'Login'}`}</button>
-        <p  style={{textAlign:"center", margin:"5px 0"}}>Don't have an account? <a href="#" onClick={handlePortalRedirect(`${process.env.REACT_APP_CLIENT_PORTAL}/signup`, 'Please sign up via the client portal. Redirecting in 3 seconds...')} style={{color:'#fd7e14', fontWeight:700}}>SignUp</a></p>
+        <p  style={{textAlign:"center", margin:"5px 0"}}>Don't have an account? <a href="#" onClick={handlePortalRedirect(`${process.env.REACT_APP_CLIENT_PORTAL}/signup`, 'Please sign up via the client portal. Redirecting in 3 seconds...')} style={{color:'#fd7e14'}}>SignUp</a></p>
         </form>
         </div></AuthBackDrop>
         
