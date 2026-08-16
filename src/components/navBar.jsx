@@ -27,7 +27,7 @@ function NavBar() {
   const location = useLocation();
 
   const navItems = [
-    { to: "/acceptDonation", label: "Accept Donation", Icon: FaBook },
+    { to: "/acceptDonation", label: "Mng. Donation", Icon: FaBook },
     { to: "/approveDonation", label: "Approve Order", Icon: MdVolunteerActivism },
     { to: "/promoteUsertoVolunteer", label: "Promote User", Icon: RiUserReceivedFill  },
   ];

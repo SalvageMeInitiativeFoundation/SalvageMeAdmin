@@ -179,7 +179,7 @@ function AcceptDonation() {
 
   return (
     <div>
-      <h1 className="PageTitle">Accept Book Donation</h1>
+      <h1 className="PageTitle">Manage Book Donation</h1>
       <p className="pageSubtitle">Review incoming donations and accept or reject books into inventory.</p>
       <div className="RequestSearch">
           <div className="SearchGroup" style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
