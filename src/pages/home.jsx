@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Heroes from "../features/Promote2Org/components/heroes";
 import Volunteers from "../features/Promote2Volunteer/components/volunteers";
 import axios from "axios";
 import Spinner from "../shared/spinner";

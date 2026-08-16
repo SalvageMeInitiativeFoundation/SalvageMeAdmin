@@ -202,16 +202,7 @@ p {
 .MainContent > * + * {
   margin-top: 18px;
 }
-.flexLayout {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  /* flex-wrap: wrap; */
-  height: 70vh;
-  overflow-y: scroll;
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
-  scrollbar-width: none; /* Firefox */
-}
+
 .flexLayout::-webkit-scrollbar {
   display: none; /* Safari and Chrome */
 }
@@ -388,17 +379,18 @@ p {
 .cardItem {
   display: flex;
   place-items: center;
-  gap: 5px;
+  gap: 15px;
   flex-direction: row;
-  padding: 10px;
-  width: 93vw;
+  width: 100%;
+  margin: 0px; /* remove left/right centering margin */
+  border-radius: 10px 10px 0px 0px;
+  box-shadow: none;
   height: fit-content;
-  margin: 0px 10px 0px 10px;
-  border-radius: 0px;
   background: #ffffff;
   border-bottom: 1px solid rgba(0,0,0,0.06);
   justify-content: space-between;
 }
+
 .cardItemListTitle {
   display: flex;
   place-items: center;
@@ -533,6 +525,21 @@ p {
   gap: 8px;
   border-bottom: none; /* remove header bottom border for donation table */
 }
+.donationTableHeader{
+    display: flex;
+    place-items: center;
+    gap: 15px;
+    flex-direction: row;
+    padding: 10px;
+    width: 100%;
+    /* max-width: 93vw; */
+    height: 30px;
+    font-weight: 700;
+    margin: 0; /* remove left/right centering margin */
+    background-color: #fafafa;
+    border-radius: 10px 10px 0px 0px;
+    box-shadow: none;
+  }
 .searchInput{
   height: 40px;
   padding: 8px 12px;
@@ -566,7 +573,7 @@ p {
   gap: 10px;
 }
 .cardTitleText{
-  font-weight: 700;
+  font-weight: 600;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -586,6 +593,19 @@ p {
   max-height: 65vh;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* flex-wrap: wrap; */
+  height: 70vh;
+  overflow-y: scroll;
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+
 }
 
 /* Manual search button next to the search input */
@@ -622,12 +642,7 @@ p {
 .cardItemDetails .PromoButtonSecondary {
   font-weight: 700;
 }
-.flexLayout{
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 12px 8px;
-}
+
 .statusBadge{
   display:inline-block;
   padding:4px 8px;
@@ -897,7 +912,7 @@ p {
 }
 
 .RequestSearch {
-  margin: 16px 0 20px;
+  margin: 15px 0px 10px 0px;
   /* width: 93vw; */
   display: flex;
   justify-content: space-between;
@@ -1083,7 +1098,7 @@ p {
   .staticColumnHead{
     flex: 2;
   }
-  .donationTableHeader, .cardItemListTitle {
+  .cardItemListTitle {
     display: flex;
     place-items: center;
     gap: 5px;
@@ -1100,16 +1115,13 @@ p {
     justify-content: space-between;
   }
 
+  
+
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 600px) and (max-width: 768px) {
-  /* .RequestSearch {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    margin: 5px auto;
-  } */
+  
   .Filter-container {
     display: flex;
     float: right;
@@ -1207,18 +1219,7 @@ p {
     height:45vh;
     padding:5px;
   }
-  .cardItem {
-    display: flex;
-    place-items: center;
-    gap: 5px;
-    flex-direction: row;
-    padding: 10px;
-    width: 80vw;
-    height: 60px;
-    margin: 0px 7px 2px 7px;
-    border-radius: 10px;
-    justify-content: space-evenly;
-  }
+  
   .cardItemListTitle {
     display: flex;
     place-items: center;
@@ -1234,27 +1235,15 @@ p {
     box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 1px 0px;
     justify-content: space-evenly;
   }
-  /* donation table header override: remove shadow/bottom-border and horizontal margins */
-  .cardItemListTitle.donationTableHeader,
-  .donationTableHeader {
-    box-shadow: none !important;
-    margin: 0 !important;
-    /* restore horizontal padding equivalent to the removed margin (5px) */
-    padding-left: calc(16px + 15px) !important;
-    padding-right: calc(16px + 15px) !important;
-    border-bottom: 1px solid rgba(0,0,0,0.06) !important;
-    width: 100% !important;
-    max-width: 93vw !important;
-    justify-content: space-between !important;
-  }
+  
   .RequestSearch {
-    margin: 5px 0px;
-    /* width: 80vw; */
+    margin: 40px 0px 5px 0px;
     display: flex;
     justify-content: space-between;
     justify-items: baseline;
     align-items: baseline;
   }
+
   .cardItemDetails {
     display: flex;
     flex: 2;
@@ -1267,16 +1256,6 @@ p {
     width:200px;
   }
 
-  .flexLayout {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* flex-wrap: wrap; */
-    height: 75vh;
-    overflow-y: scroll;
-    -ms-overflow-style: none; /* Internet Explorer 10+ */
-    scrollbar-width: none; /* Firefox */
-  }
   .cardItemTitle {
     margin: 10px 3px;
     width: 90%;  
@@ -1285,10 +1264,7 @@ p {
   .Dashboard {
     margin-top: 20px;
   }
-  .staticColumnHeadTwo{
-    text-align: left;
-    width:100px;
-  }
+  
 }
 
 
