@@ -224,7 +224,7 @@ function AcceptDonation() {
         
       </div>
       <div className="donationTable">
-      <div className="cardItemListTitle donationTableHeader">
+      <div className="donationTableHeader">
         <p style={{ width: "69px" }}>Image</p>
         <p style={{ textAlign: "left", flex: "2" }}>Title</p>
         <p className="staticColumnHead" >Donor</p>

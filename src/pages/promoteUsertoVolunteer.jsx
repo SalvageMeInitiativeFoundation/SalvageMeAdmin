@@ -123,7 +123,7 @@ const PromoteUsertoVolunteer = () => {
         </div>
       </div>
       <div className="donationTable"> 
-        <div className="cardItemListTitle donationTableHeader">
+        <div className=" donationTableHeader">
           <p style={{ width: "69px" }}>Image</p>
           <p style={{ textAlign: "left", flex: "2" }}>User</p>
           <p className="staticColumnHeadTwo">Role</p>

@@ -83,17 +83,14 @@ function DonorBook({ donation, user, DonationAccepted, DonationRejected, updateD
             {donation.status}
           </span>
         </p>
-        <p className="staticColumnHead donorText">{donation.donor}</p>
+        <p className="staticColumnHead">{donation.donor}</p>
         <p style={{ textAlign: "left", flex: "1" }}>
           {new Date(donation.updatedAt).toLocaleString()}
         </p>
-
         <div className="cardItemDetails">
-          
           <button className="MailButton" type="button" onClick={handleManualMail}>
             Initiate Manual Mail
           </button>
-          
           <button className="PromoButtonSecondary" type="button" onClick={() => setShowDetails(true)}>
             View Details
           </button>

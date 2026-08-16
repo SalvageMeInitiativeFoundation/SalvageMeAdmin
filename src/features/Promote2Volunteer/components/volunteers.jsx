@@ -34,7 +34,6 @@ function Volunteers({ user, updateUser }) {
         <div className="avatar" style={{ backgroundImage: `url(${imgSrc})` }} role="img" aria-label={user.username || user.email} />
         <p style={{ textAlign: "left", flex: "2", textOverflow: "ellipsis", overflow: "hidden", fontWeight: "600" }}>{user.username || user.email}</p>
         <p className="staticColumnHeadTwo">{user.accountType}</p>
-
         <div className="cardItemDetails">
           <button className="PromoButtonSecondary" type="button" onClick={() => setShowDetails(true)}>
             View Details
