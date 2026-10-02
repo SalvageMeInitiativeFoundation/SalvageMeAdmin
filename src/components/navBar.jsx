@@ -6,11 +6,10 @@ import salvageMeLogo from "../assets/SalvageMeLogo.png";
 import { FaBook } from "react-icons/fa6";
 import { RiUserReceivedFill } from "react-icons/ri";
 import { MdVolunteerActivism } from "react-icons/md";
-import { GiOrganigram } from "react-icons/gi";
-import { IoLogIn } from "react-icons/io5";
-import { IoLogOut } from "react-icons/io5";
+import { IoLogIn,IoLogOut } from "react-icons/io5";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { RxHamburgerMenu } from "react-icons/rx";
+import { TbTerminal2 } from "react-icons/tb";
 
 function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,6 +29,7 @@ function NavBar() {
     { to: "/acceptDonation", label: "Mng. Donation", Icon: FaBook },
     { to: "/approveDonation", label: "Approve Order", Icon: MdVolunteerActivism },
     { to: "/promoteUsertoVolunteer", label: "Promote User", Icon: RiUserReceivedFill  },
+    { to: "/auditlog", label: "Audit Log", Icon: TbTerminal2  }
   ];
 
   return (

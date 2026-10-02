@@ -9,11 +9,11 @@ import AcceptDonation from "./pages/acceptDonation";
 import ApproveDonation from "./pages/approveDonation";
 import Login from "./pages/login";
 import PrivateRoute from "./components/privateRoute";
-import PrivateRoute1 from "./components/privateRoute1";
 import AuthRoute from "./components/authRoute";
 import UserContextProvider from "./context/userContext/userContext";
 import SideBarLayout from "./shared/sideBarLayout";
 import PromoteUsertoVolunteer from "./pages/promoteUsertoVolunteer";
+import AuditLog from "./pages/AuditLogs";
 
 
 
@@ -37,6 +37,9 @@ function App() {
           </Route>
           <Route path="/promoteUsertoVolunteer" element={<PrivateRoute />}>
             <Route path="/promoteUsertoVolunteer" element={<PromoteUsertoVolunteer />} />
+          </Route>
+          <Route path="/auditlog" element={<PrivateRoute />}>
+            <Route path="/auditlog" element={<AuditLog />} />
           </Route>
           
           <Route path="/login" element={<Login />} />
