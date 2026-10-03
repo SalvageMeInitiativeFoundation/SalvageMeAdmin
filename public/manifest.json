@@ -1,5 +1,5 @@
 {
-  "short_name": "SalvageMe Admin Portal",
+  "short_name": "SalvageMe Management Portal",
   "name": "Creating a Renewable Ecosystem of Educational Materials",
   "icons": [
     {
@@ -8,12 +8,12 @@
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
+      "src": "/images/logo/SalvageMe192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "logo512.png",
+      "src": "/images/logo/SalvageMe.png",
       "type": "image/png",
       "sizes": "512x512"
     }
