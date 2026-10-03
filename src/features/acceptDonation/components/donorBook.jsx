@@ -1,10 +1,13 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import { toast } from 'react-toastify';
 
 function DonorBook({ donation, user, DonationAccepted, DonationRejected, updateDonationStatus }) {
   const [showDetails, setShowDetails] = useState(false);
+  const [showMailModal, setShowMailModal] = useState(false);
+  const [customMessage, setCustomMessage] = useState('');
+  const [isSendingMail, setIsSendingMail] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState(donation.status || "pending");
-  const message = "Hello, Thanks Donating a book to.......................... ";
 
   const statuses = [
     "pending",
@@ -23,38 +26,46 @@ function DonorBook({ donation, user, DonationAccepted, DonationRejected, updateD
     setShowDetails(false);
   };
 
-  const mailTimerRef = useRef(null);
-
-  useEffect(() => {
-    return () => {
-      if (mailTimerRef.current) {
-        clearTimeout(mailTimerRef.current);
-        mailTimerRef.current = null;
-      }
-    };
-  }, []);
-
   const handleManualMail = (e) => {
     e.preventDefault();
-    const subject = 'Appreciation for Donation';
-    const body = message;
-    const mailto = `mailto:${donation.donor}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    setShowMailModal(true);
+  };
 
-    toast.info('Your email app or browser will open in 3 seconds to compose the message.', { autoClose: 3000, position: 'top-right' });
+  const handleSendMail = async (e) => {
+    e.preventDefault();
+    const accessToken = user?.[0]?.accessToken || user?.accessToken;
+    if (!accessToken) {
+      toast.error('Your session has expired. Please sign in again.', { position: 'top-right', autoClose: 5000 });
+      return;
+    }
 
-    if (mailTimerRef.current) clearTimeout(mailTimerRef.current);
-    mailTimerRef.current = setTimeout(() => {
-      // open mail client
-      try {
-        window.location.href = mailto;
-      } catch (err) {
-        // fallback to open
-        console.error('Error opening mail client:', err);
-        window.open(mailto, '_blank');
-        toast.error('Could not open email client. Please check your browser settings.', { position: 'top-right', autoClose: 5000 });
-      }
-      mailTimerRef.current = null;
-    }, 3000);
+    setIsSendingMail(true);
+    try {
+      await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/sendemail/send`,
+        {
+          to: donation.donor,
+          template: 'donationStatus',
+          payload: {
+            name: donation.donorUsername || donation.donorId?.username || donation.donor,
+            bookTitle: donation.title,
+            status: selectedStatus,
+            customMessage: customMessage.trim(),
+          },
+        },
+        { headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${accessToken}` } }
+      );
+      toast.success('Email sent successfully.', { position: 'top-right', autoClose: 4000 });
+      setCustomMessage('');
+      setShowMailModal(false);
+    } catch (error) {
+      toast.error(error?.response?.data?.message || error?.message || 'Could not send email.', {
+        position: 'top-right',
+        autoClose: 5000,
+      });
+    } finally {
+      setIsSendingMail(false);
+    }
   };
 
   const acceptedByName = (() => {
@@ -96,6 +107,55 @@ function DonorBook({ donation, user, DonationAccepted, DonationRejected, updateD
           </button>
         </div>
       </div>
+
+      {showMailModal && (
+        <div className="modalOverlay" onClick={() => !isSendingMail && setShowMailModal(false)}>
+          <form className="sideModal" onSubmit={handleSendMail} onClick={(e) => e.stopPropagation()}>
+            <div className="sideModalHeader">
+              <h3>Send Donor Email</h3>
+              <button className="PromoButtonTertiary" type="button" onClick={() => setShowMailModal(false)} disabled={isSendingMail}>
+                Close
+              </button>
+            </div>
+
+            <div className="sideModalBody">
+              <div className="detailRow">
+                <strong>To:</strong>
+                <span>{donation.donor}</span>
+              </div>
+              <div className="detailRow">
+                <strong>Book:</strong>
+                <span>{donation.title}</span>
+              </div>
+              <div className="detailRow">
+                <strong>Status:</strong>
+                <span>{selectedStatus}</span>
+              </div>
+              <label htmlFor={`custom-message-${donation._id}`} style={{ display: 'block', marginTop: 16, marginBottom: 8, fontWeight: 600 }}>
+                Custom message
+              </label>
+              <textarea
+                id={`custom-message-${donation._id}`}
+                value={customMessage}
+                onChange={(e) => setCustomMessage(e.target.value)}
+                placeholder="Write a message to the donor..."
+                rows={8}
+                required
+                style={{ width: '100%', boxSizing: 'border-box', resize: 'vertical', padding: 10, border: '1px solid #e5e5e5', borderRadius: 6, font: 'inherit' }}
+              />
+            </div>
+
+            <div className="sideModalFooter">
+              <button className="PromoButtonPrimary" type="submit" disabled={isSendingMail}>
+                {isSendingMail ? 'Sending...' : 'Send Email'}
+              </button>
+              <button className="PromoButtonTertiary" type="button" onClick={() => setShowMailModal(false)} disabled={isSendingMail}>
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
 
       {showDetails && (
         <div className="modalOverlay" onClick={() => setShowDetails(false)}>
